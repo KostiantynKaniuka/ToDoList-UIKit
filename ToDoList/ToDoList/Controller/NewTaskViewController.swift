@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class NewTaskViewController: UIViewController {
     
@@ -14,13 +15,16 @@ class NewTaskViewController: UIViewController {
     private let viewInsideStack = UIView()
     private let verticalStackView = UIStackView()
     private let horizontalStackView = UIStackView()
-    private let addTaskButton = UIButton()
+    private let saveTaskButton = UIButton()
     private let taskTextField = UITextField()
-    private var bottomConstraint = NSLayoutConstraint()
+    private let calendarButton = UIButton()
     
+    private var subscribers = Set<AnyCancellable>()
+    @Published private var taskString: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        observeForm()
         style()
         layout()
         setupGestures()
@@ -30,7 +34,22 @@ class NewTaskViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         taskTextField.becomeFirstResponder()
+        saveTaskButton.addTarget(self, action: #selector(kek), for: .touchUpInside)
     }
+    
+    //Enable/Disable save button
+    private func observeForm() {
+        NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification).map { (notification) -> String? in
+            return (notification.object as? UITextField)?.text
+        }.sink { [unowned self](text) in
+            self.taskString = text
+        }.store(in: &subscribers)
+        $taskString.sink { (text) in
+            self.saveTaskButton.isEnabled = text?.isEmpty == false
+        }.store(in: &subscribers)
+    }
+    
+    
     
     private func setupGestures() {
         let tapGestures = UITapGestureRecognizer(target: self, action: #selector(dismissViewController))
@@ -39,6 +58,7 @@ class NewTaskViewController: UIViewController {
     
     private func observeKeyboard() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     private func getKeyboarHeight(notification: Notification) -> CGFloat {
@@ -50,17 +70,18 @@ class NewTaskViewController: UIViewController {
     @objc private func keyboardWillShow(_ notification: Notification) {
         let keyboarHeigh = getKeyboarHeight(notification: notification)
         view.frame.origin.y = view.frame.origin.y - keyboarHeigh
-    
     }
     
     @objc private func keyboardWillHide(_ notification: Notification) {
-        let keyboarHeigh = getKeyboarHeight(notification: notification)
         view.frame.origin.y = 0
-    
     }
     
     @objc private func dismissViewController() {
         dismiss(animated: true)
+    }
+    
+    @objc private func kek() {
+        print("kek")
     }
 }
 
@@ -78,20 +99,16 @@ extension NewTaskViewController {
         horizontalStackView.axis = .horizontal
         horizontalStackView.distribution = .fill
         horizontalStackView.alignment = .fill
-       // verticalStackView.backgroundColor = .yellow
-       // horizontalStackView.backgroundColor = .blue
-       viewInsideStack.backgroundColor = .brown
         //Button
         let attributedText = NSMutableAttributedString(string: "Save", attributes: [
             NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17),
-            NSAttributedString.Key.foregroundColor: UIColor.systemBlue,
+            NSAttributedString.Key.foregroundColor: UIColor.white,
             NSAttributedString.Key.kern: 1
             ])
-        var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = .systemBackground
-        addTaskButton.configuration = config
-        addTaskButton.setAttributedTitle(attributedText, for: .normal)
-        
+        var config = UIButton.Configuration.gray()
+        config.baseBackgroundColor = .black
+        saveTaskButton.configuration = config
+        saveTaskButton.setAttributedTitle(attributedText, for: .normal)
         //TextField
         taskTextField.backgroundColor = .systemBackground
         taskTextField.layer.cornerRadius = 10
@@ -110,7 +127,7 @@ extension NewTaskViewController {
         view.addSubview(bottomView)
         view.addSubview(verticalStackView)
        
-        horizontalStackView.addArrangedSubview(addTaskButton)
+        horizontalStackView.addArrangedSubview(saveTaskButton)
         verticalStackView.addArrangedSubview(taskTextField)
         verticalStackView.addArrangedSubview(horizontalStackView)
         verticalStackView.addArrangedSubview(viewInsideStack)
@@ -121,9 +138,9 @@ extension NewTaskViewController {
             backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             //BottomView
-            bottomView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
-            bottomView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
-            
+            bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bottomView.heightAnchor.constraint(equalToConstant: 200),
             //Vertical Stack View
             verticalStackView.leadingAnchor.constraint(equalToSystemSpacingAfter:
                                                         bottomView.leadingAnchor,
@@ -138,9 +155,9 @@ extension NewTaskViewController {
                                          verticalStackView.bottomAnchor,
                                          multiplier: 2),
             //View Inside The Sctack
-            viewInsideStack.heightAnchor.constraint(equalToConstant: 200),
+            //viewInsideStack.heightAnchor.constraint(equalToConstant: 200),
             //Name Button
-            addTaskButton.heightAnchor.constraint(equalToConstant: 40),
+            saveTaskButton.heightAnchor.constraint(equalToConstant: 40),
             //Text Field
             taskTextField.heightAnchor.constraint(equalToConstant: 40)
         ])

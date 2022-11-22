@@ -125,6 +125,6 @@ extension MainViewController {
     }
     
     @objc private func addTaskButtonTapped(_ sender: UIButton) {
-        present(NewTaskViewController(), animated: false, completion: nil)
+        present(NewTaskViewController(), animated: true, completion: nil)
     }
 }
