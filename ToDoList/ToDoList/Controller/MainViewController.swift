@@ -15,7 +15,6 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ongoingTaskViewController.tableView.isHidden = true
         style()
         layout()
         adjustSegmentControll()
@@ -53,7 +52,7 @@ extension MainViewController {
     
     private func layout() {
         let bottomContainer = UIView()
-        bottomContainer.backgroundColor = .white
+        bottomContainer.backgroundColor = .appBackground
         navigationItem.titleView = segmentControll
         addChild(doneTaskViewController)
         addChild(ongoingTaskViewController)
