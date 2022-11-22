@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = .appBackground
         window?.rootViewController = navigationController
         
-        
         return true
     }
 }

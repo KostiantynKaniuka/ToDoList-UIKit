@@ -9,19 +9,18 @@ import UIKit
 import Combine
 
 class NewTaskViewController: UIViewController {
-    
+    //MARK: - Outlets
     private let backgroundView = UIView()
     private let bottomView = UIView()
-    private let viewInsideStack = UIView()
     private let verticalStackView = UIStackView()
     private let horizontalStackView = UIStackView()
     private let saveTaskButton = UIButton()
     private let taskTextField = UITextField()
     private let calendarButton = UIButton()
-    
     private var subscribers = Set<AnyCancellable>()
     @Published private var taskString: String?
     
+    //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         observeForm()
@@ -37,6 +36,7 @@ class NewTaskViewController: UIViewController {
         saveTaskButton.addTarget(self, action: #selector(kek), for: .touchUpInside)
     }
     
+    //MARK: - Methods
     //Enable/Disable save button
     private func observeForm() {
         NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification).map { (notification) -> String? in
@@ -49,22 +49,9 @@ class NewTaskViewController: UIViewController {
         }.store(in: &subscribers)
     }
     
-    
-    
     private func setupGestures() {
         let tapGestures = UITapGestureRecognizer(target: self, action: #selector(dismissViewController))
         view.addGestureRecognizer(tapGestures)
-    }
-    
-    private func observeKeyboard() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    private func getKeyboarHeight(notification: Notification) -> CGFloat {
-        guard let keyboarHeigh = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height else { return 0 }
-        
-        return keyboarHeigh
     }
     
     @objc private func keyboardWillShow(_ notification: Notification) {
@@ -83,13 +70,25 @@ class NewTaskViewController: UIViewController {
     @objc private func kek() {
         print("kek")
     }
+    
+    //MARK: - Keyboard Controll
+    private func observeKeyboard() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    private func getKeyboarHeight(notification: Notification) -> CGFloat {
+        guard let keyboarHeigh = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height else { return 0 }
+        
+        return keyboarHeigh
+    }
 }
 
 extension NewTaskViewController {
-    
+    //MARK: - Views configuration
     private func style() {
         backgroundView.backgroundColor = .AddNewTaskScreenColor
-        bottomView.backgroundColor = .systemBackground
+        bottomView.backgroundColor = .white
         //Vertical Stack
         verticalStackView.axis = .vertical
         verticalStackView.distribution = .fill
@@ -99,16 +98,25 @@ extension NewTaskViewController {
         horizontalStackView.axis = .horizontal
         horizontalStackView.distribution = .fill
         horizontalStackView.alignment = .fill
-        //Button
+        horizontalStackView.spacing = 200
+        //Save Task Button
         let attributedText = NSMutableAttributedString(string: "Save", attributes: [
             NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17),
             NSAttributedString.Key.foregroundColor: UIColor.white,
             NSAttributedString.Key.kern: 1
             ])
-        var config = UIButton.Configuration.gray()
-        config.baseBackgroundColor = .black
-        saveTaskButton.configuration = config
+        var saveButtonconfig = UIButton.Configuration.gray()
+        saveButtonconfig.baseBackgroundColor = .black
+        saveTaskButton.configuration = saveButtonconfig
         saveTaskButton.setAttributedTitle(attributedText, for: .normal)
+        //Calendar Button
+        let imageConfiguration = UIImage.SymbolConfiguration(hierarchicalColor: .black)
+        let image = UIImage(systemName: "calendar", withConfiguration: imageConfiguration) as UIImage?
+        var calendarButtonconfiguration = UIButton.Configuration.gray()
+        calendarButtonconfiguration.baseBackgroundColor = .clear
+        calendarButtonconfiguration.cornerStyle = .capsule
+        calendarButton.configuration = calendarButtonconfiguration
+        calendarButton.setImage(image, for: .normal)
         //TextField
         taskTextField.backgroundColor = .systemBackground
         taskTextField.layer.cornerRadius = 10
@@ -118,6 +126,7 @@ extension NewTaskViewController {
         taskTextField.placeholder = " Enter a new task"
     }
     
+    //MARK: - Layout
     private func layout() {
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         bottomView.translatesAutoresizingMaskIntoConstraints = false
@@ -128,10 +137,11 @@ extension NewTaskViewController {
         view.addSubview(verticalStackView)
        
         horizontalStackView.addArrangedSubview(saveTaskButton)
+        //horizontalStackView.addArrangedSubview(viewInsideStack)
+        horizontalStackView.addArrangedSubview(calendarButton)
         verticalStackView.addArrangedSubview(taskTextField)
         verticalStackView.addArrangedSubview(horizontalStackView)
-        verticalStackView.addArrangedSubview(viewInsideStack)
-       
+    
         NSLayoutConstraint.activate([
             backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -154,10 +164,10 @@ extension NewTaskViewController {
             backgroundView.bottomAnchor.constraint(equalToSystemSpacingBelow:
                                          verticalStackView.bottomAnchor,
                                          multiplier: 2),
-            //View Inside The Sctack
-            //viewInsideStack.heightAnchor.constraint(equalToConstant: 200),
-            //Name Button
+            // Buttons
             saveTaskButton.heightAnchor.constraint(equalToConstant: 40),
+            calendarButton.heightAnchor.constraint(equalToConstant: 40),
+            calendarButton.widthAnchor.constraint(equalToConstant: 40),
             //Text Field
             taskTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
