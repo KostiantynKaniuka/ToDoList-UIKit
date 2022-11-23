@@ -67,4 +67,21 @@ class RealmManager: ObservableObject {
             }
         }
     }
+    
+    func deleteTask(id: ObjectId) {
+        if let localRealm = localRealm {
+            do {
+                let tasksToDelete = localRealm.objects(Task.self).filter(NSPredicate(format: "id == %@", id))
+                guard !tasksToDelete.isEmpty else { return }
+                
+                try localRealm.write {
+                    localRealm.delete(tasksToDelete)
+                    getTasks()
+                    print("Deleted task with id \(id)")
+                }
+            } catch {
+                print("Error deleting task \(id) from Realm: \(error)")
+            }
+        }
+    }
 }
