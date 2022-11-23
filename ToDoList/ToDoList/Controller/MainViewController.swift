@@ -8,17 +8,16 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    private let segmentControll = UISegmentedControl()
+    private let segmentControll = SegmentControll(frame: .null)
     private let ongoingTaskViewController = OngoingTaskTableViewController()
     private let doneTaskViewController = DoneTaskTableViewController()
-    private let addNewTaskButton = UIButton()
+    private let addNewTaskButton = AddNewTaskButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         style()
         layout()
         adjustSegmentControll()
-        
     }
 }
 
@@ -28,24 +27,6 @@ extension MainViewController {
         view.backgroundColor = .appBackground
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Tasks"
-        //addNewTaskButton
-        let image = UIImage(systemName: "plus") as UIImage?
-        var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = .black
-        config.cornerStyle = .capsule
-        config.contentInsets = NSDirectionalEdgeInsets(top: 25, leading: 25, bottom: 25, trailing: 25)
-        addNewTaskButton.configuration = config
-        addNewTaskButton.setImage(image, for: .normal)
-        //SegmentControll
-        let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        segmentControll.setTitleTextAttributes(titleTextAttributes, for:.normal)
-        let titleTextAttributes1 = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        segmentControll.setTitleTextAttributes(titleTextAttributes1, for:.selected)
-        segmentControll.backgroundColor = .black
-        segmentControll.layer.borderColor = UIColor.darkGray.cgColor
-        segmentControll.selectedSegmentTintColor = UIColor.white
-        segmentControll.layer.borderWidth = 1
-        //Action
         segmentControll.addTarget(self, action: #selector(segmentControlChanged), for: .valueChanged)
         addNewTaskButton.addTarget(self, action: #selector(addTaskButtonTapped), for: .touchUpInside)
     }

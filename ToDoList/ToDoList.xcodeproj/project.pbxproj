@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		E71C91F3292E741100443A43 /* TaskTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71C91F2292E741100443A43 /* TaskTextField.swift */; };
+		E71C91F8292E7C6200443A43 /* SaveTaskButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71C91F7292E7C6200443A43 /* SaveTaskButton.swift */; };
+		E71C91FA292E816400443A43 /* CalendarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71C91F9292E816400443A43 /* CalendarButton.swift */; };
+		E71C91FC292E82D500443A43 /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71C91FB292E82D500443A43 /* VerticalStackView.swift */; };
+		E71C91FE292E902900443A43 /* HorizontalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71C91FD292E902900443A43 /* HorizontalStackView.swift */; };
+		E71C9201292E947B00443A43 /* AddNewTaskButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71C9200292E947B00443A43 /* AddNewTaskButton.swift */; };
+		E71C9203292E953500443A43 /* SegmentControll.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71C9202292E953500443A43 /* SegmentControll.swift */; };
 		E7653703292BF6E7005FD271 /* StyleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7653702292BF6E7005FD271 /* StyleExtension.swift */; };
 		E765370A292C0037005FD271 /* SegmentSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7653709292C0037005FD271 /* SegmentSection.swift */; };
 		E765370D292C06AB005FD271 /* OngoingTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E765370C292C06AB005FD271 /* OngoingTaskTableViewController.swift */; };
@@ -25,6 +31,12 @@
 
 /* Begin PBXFileReference section */
 		E71C91F2292E741100443A43 /* TaskTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTextField.swift; sourceTree = "<group>"; };
+		E71C91F7292E7C6200443A43 /* SaveTaskButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveTaskButton.swift; sourceTree = "<group>"; };
+		E71C91F9292E816400443A43 /* CalendarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarButton.swift; sourceTree = "<group>"; };
+		E71C91FB292E82D500443A43 /* VerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
+		E71C91FD292E902900443A43 /* HorizontalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalStackView.swift; sourceTree = "<group>"; };
+		E71C9200292E947B00443A43 /* AddNewTaskButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTaskButton.swift; sourceTree = "<group>"; };
+		E71C9202292E953500443A43 /* SegmentControll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControll.swift; sourceTree = "<group>"; };
 		E7653702292BF6E7005FD271 /* StyleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleExtension.swift; sourceTree = "<group>"; };
 		E7653709292C0037005FD271 /* SegmentSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentSection.swift; sourceTree = "<group>"; };
 		E765370C292C06AB005FD271 /* OngoingTaskTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingTaskTableViewController.swift; sourceTree = "<group>"; };
@@ -53,6 +65,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E71C91F4292E7B0100443A43 /* NewTaskScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E71C91F2292E741100443A43 /* TaskTextField.swift */,
+				E71C91F7292E7C6200443A43 /* SaveTaskButton.swift */,
+				E71C91F9292E816400443A43 /* CalendarButton.swift */,
+				E71C91FB292E82D500443A43 /* VerticalStackView.swift */,
+				E71C91FD292E902900443A43 /* HorizontalStackView.swift */,
+			);
+			path = NewTaskScreen;
+			sourceTree = "<group>";
+		};
+		E71C91FF292E942A00443A43 /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E71C9200292E947B00443A43 /* AddNewTaskButton.swift */,
+				E71C9202292E953500443A43 /* SegmentControll.swift */,
+			);
+			path = MainScreen;
+			sourceTree = "<group>";
+		};
 		E7653704292BFDD9005FD271 /* Files  */ = {
 			isa = PBXGroup;
 			children = (
@@ -66,8 +99,9 @@
 		E7653705292BFDFE005FD271 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E71C91FF292E942A00443A43 /* MainScreen */,
+				E71C91F4292E7B0100443A43 /* NewTaskScreen */,
 				E7653702292BF6E7005FD271 /* StyleExtension.swift */,
-				E71C91F2292E741100443A43 /* TaskTextField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -198,14 +232,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E71C9203292E953500443A43 /* SegmentControll.swift in Sources */,
 				E7A86A83292D77E70071D5AD /* Task.swift in Sources */,
 				E765370D292C06AB005FD271 /* OngoingTaskTableViewController.swift in Sources */,
 				E765370A292C0037005FD271 /* SegmentSection.swift in Sources */,
 				E7F6C905292BE2CA00E6A20B /* MainViewController.swift in Sources */,
 				E765370F292C170D005FD271 /* DoneTaskTableViewController.swift in Sources */,
 				E7A86A8A292D7BB40071D5AD /* RealmManager.swift in Sources */,
+				E71C91F8292E7C6200443A43 /* SaveTaskButton.swift in Sources */,
 				E7653703292BF6E7005FD271 /* StyleExtension.swift in Sources */,
 				E7F6C901292BE2CA00E6A20B /* AppDelegate.swift in Sources */,
+				E71C91FA292E816400443A43 /* CalendarButton.swift in Sources */,
+				E71C9201292E947B00443A43 /* AddNewTaskButton.swift in Sources */,
+				E71C91FC292E82D500443A43 /* VerticalStackView.swift in Sources */,
+				E71C91FE292E902900443A43 /* HorizontalStackView.swift in Sources */,
 				E71C91F3292E741100443A43 /* TaskTextField.swift in Sources */,
 				E7653711292C2B5A005FD271 /* NewTaskViewController.swift in Sources */,
 			);

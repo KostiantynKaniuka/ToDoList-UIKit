@@ -12,11 +12,11 @@ class NewTaskViewController: UIViewController {
     //MARK: - Outlets
     private let backgroundView = UIView()
     private let bottomView = UIView()
-    private let verticalStackView = UIStackView()
-    private let horizontalStackView = UIStackView()
-    private let saveTaskButton = UIButton()
-    private let taskTextField = UITextField()
-    private let calendarButton = UIButton()
+    private let verticalStackView = VerticalStackView()
+    private let horizontalStackView = HorizontalStackView()
+    private let taskTextField = TaskTextField()
+    private let saveTaskButton = SaveTaskButton()
+    private let calendarButton = CalendarButton()
     private var subscribers = Set<AnyCancellable>()
     @Published private var taskString: String?
     
@@ -53,16 +53,7 @@ class NewTaskViewController: UIViewController {
         let tapGestures = UITapGestureRecognizer(target: self, action: #selector(dismissViewController))
         view.addGestureRecognizer(tapGestures)
     }
-    
-    @objc private func keyboardWillShow(_ notification: Notification) {
-        let keyboarHeigh = getKeyboarHeight(notification: notification)
-        view.frame.origin.y = view.frame.origin.y - keyboarHeigh
-    }
-    
-    @objc private func keyboardWillHide(_ notification: Notification) {
-        view.frame.origin.y = 0
-    }
-    
+   
     @objc private func dismissViewController() {
         dismiss(animated: true)
     }
@@ -82,6 +73,15 @@ class NewTaskViewController: UIViewController {
         
         return keyboarHeigh
     }
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        let keyboarHeigh = getKeyboarHeight(notification: notification)
+        view.frame.origin.y = view.frame.origin.y - keyboarHeigh
+    }
+    
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        view.frame.origin.y = 0
+    }
 }
 
 extension NewTaskViewController {
@@ -89,41 +89,6 @@ extension NewTaskViewController {
     private func style() {
         backgroundView.backgroundColor = .AddNewTaskScreenColor
         bottomView.backgroundColor = .white
-        //Vertical Stack
-        verticalStackView.axis = .vertical
-        verticalStackView.distribution = .fill
-        verticalStackView.alignment = .fill
-        verticalStackView.spacing = 16
-        //Horizontal Stack
-        horizontalStackView.axis = .horizontal
-        horizontalStackView.distribution = .fill
-        horizontalStackView.alignment = .fill
-        horizontalStackView.spacing = 200
-        //Save Task Button
-        let attributedText = NSMutableAttributedString(string: "Save", attributes: [
-            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17),
-            NSAttributedString.Key.foregroundColor: UIColor.white,
-            NSAttributedString.Key.kern: 1
-            ])
-        var saveButtonconfig = UIButton.Configuration.gray()
-        saveButtonconfig.baseBackgroundColor = .black
-        saveTaskButton.configuration = saveButtonconfig
-        saveTaskButton.setAttributedTitle(attributedText, for: .normal)
-        //Calendar Button
-        let imageConfiguration = UIImage.SymbolConfiguration(hierarchicalColor: .black)
-        let image = UIImage(systemName: "calendar", withConfiguration: imageConfiguration) as UIImage?
-        var calendarButtonconfiguration = UIButton.Configuration.gray()
-        calendarButtonconfiguration.baseBackgroundColor = .clear
-        calendarButtonconfiguration.cornerStyle = .capsule
-        calendarButton.configuration = calendarButtonconfiguration
-        calendarButton.setImage(image, for: .normal)
-        //TextField
-        taskTextField.backgroundColor = .systemBackground
-        taskTextField.layer.cornerRadius = 10
-        taskTextField.layer.borderWidth = 1
-        taskTextField.layer.borderColor = UIColor.lightGray.cgColor
-        taskTextField.font = UIFont(name: "Avenir Next", size: 17)
-        taskTextField.placeholder = " Enter a new task"
     }
     
     //MARK: - Layout
