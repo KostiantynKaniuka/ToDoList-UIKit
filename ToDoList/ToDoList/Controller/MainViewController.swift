@@ -6,15 +6,18 @@
 //
 
 import UIKit
+import RealmSwift
 
 final class MainViewController: UIViewController {
     private let segmentControll = SegmentControll(frame: .null)
     private let ongoingTaskViewController = OngoingTaskTableViewController()
     private let doneTaskViewController = DoneTaskTableViewController()
     private let addNewTaskButton = AddNewTaskButton()
-    
+    private var realm = RealmManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        NewTaskViewController.delegate = self
         style()
         layout()
         adjustSegmentControll()
@@ -71,7 +74,6 @@ extension MainViewController {
             //Add new task button
             addNewTaskButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             addNewTaskButton.centerYAnchor.constraint(equalTo: bottomContainer.firstBaselineAnchor)
-            
         ])
     }
     
@@ -107,5 +109,14 @@ extension MainViewController {
     
     @objc private func addTaskButtonTapped(_ sender: UIButton) {
         present(NewTaskViewController(), animated: true, completion: nil)
+    }
+}
+
+extension MainViewController: MainViewControllerDelegate {
+    
+    func didAddTask(_ task: Task) {
+        presentedViewController?.dismiss(animated: true, completion: { [unowned self] in
+            self.realm.addTask(title: task.title)
+        })
     }
 }

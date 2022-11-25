@@ -23,7 +23,7 @@ final class TaskTextField: UITextField {
         self.layer.cornerRadius = 10
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.lightGray.cgColor
-        self.font = UIFont(name: "Avenir Next", size: 17)
+        self.font = UIFont(name: "San Francisco", size: 17)
         self.placeholder = " Enter a new task"
     }
  }

@@ -27,11 +27,11 @@ class RealmManager: ObservableObject {
         }
     }
     
-    func addTask(taskTitle: String) {
+    func addTask(title: String) {
         if let localRealm = localRealm {
             do {
                 try localRealm.write {
-                    let newTask = Task(value: ["title": taskTitle, "completed": false])
+                    let newTask = Task(value: ["title": title, "dateOfAdding": Date().description(with: .current), "completed": false])
                     localRealm.add(newTask)
                     getTasks()
                     print("Added new task to Realm: \(newTask)")

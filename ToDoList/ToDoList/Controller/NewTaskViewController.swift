@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class NewTaskViewController: UIViewController {
+final class NewTaskViewController: UIViewController {
     //MARK: - Outlets
     private let backgroundView = UIView()
     private let bottomView = UIView()
@@ -19,6 +19,7 @@ class NewTaskViewController: UIViewController {
     private let calendarButton = CalendarButton()
     private var subscribers = Set<AnyCancellable>()
     @Published private var taskString: String?
+    static weak var delegate: MainViewControllerDelegate?
     
     
     
@@ -35,7 +36,7 @@ class NewTaskViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         taskTextField.becomeFirstResponder()
-        saveTaskButton.addTarget(self, action: #selector(kek), for: .touchUpInside)
+        saveTaskButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
     }
     
     //MARK: - Methods
@@ -60,8 +61,10 @@ class NewTaskViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    @objc private func kek() {
-        print("kek")
+    @objc private func saveButtonPressed() {
+        let task = Task()
+        task.title = taskTextField.text ?? ""
+        NewTaskViewController.delegate?.didAddTask(task)
     }
     
     //MARK: - Keyboard Controll

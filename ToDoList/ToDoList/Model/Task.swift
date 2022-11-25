@@ -9,9 +9,9 @@ import Foundation
 import RealmSwift
 
 class Task: Object, ObjectKeyIdentifiable {
-    @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted(primaryKey: true) var _id: ObjectId
     @Persisted var title = ""
-    @Persisted var dateOfAdding = Date()
+    @Persisted var dateOfAdding = Date().description(with: .current)
     @Persisted var completed = false
 }
 
