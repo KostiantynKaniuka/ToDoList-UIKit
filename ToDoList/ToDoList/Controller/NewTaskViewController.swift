@@ -20,6 +20,8 @@ class NewTaskViewController: UIViewController {
     private var subscribers = Set<AnyCancellable>()
     @Published private var taskString: String?
     
+    
+    
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,7 +78,11 @@ class NewTaskViewController: UIViewController {
     
     @objc private func keyboardWillShow(_ notification: Notification) {
         let keyboarHeigh = getKeyboarHeight(notification: notification)
-        view.frame.origin.y = view.frame.origin.y - keyboarHeigh
+        if view.frame.origin.y == 0 {
+            view.frame.origin.y -= keyboarHeigh
+        } else {
+            return
+        }
     }
     
     @objc private func keyboardWillHide(_ notification: Notification) {
@@ -102,7 +108,6 @@ extension NewTaskViewController {
         view.addSubview(verticalStackView)
        
         horizontalStackView.addArrangedSubview(saveTaskButton)
-        //horizontalStackView.addArrangedSubview(viewInsideStack)
         horizontalStackView.addArrangedSubview(calendarButton)
         verticalStackView.addArrangedSubview(taskTextField)
         verticalStackView.addArrangedSubview(horizontalStackView)
