@@ -20,9 +20,6 @@ final class NewTaskViewController: UIViewController {
     private var subscribers = Set<AnyCancellable>()
     @Published private var taskString: String?
     static weak var delegate: MainViewControllerDelegate?
-    
-    
-    
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()

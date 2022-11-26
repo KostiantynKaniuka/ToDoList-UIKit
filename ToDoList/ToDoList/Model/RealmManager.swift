@@ -19,7 +19,7 @@ class RealmManager: ObservableObject {
     
     func openRealm() {
         do {
-            let config = Realm.Configuration(schemaVersion: 1)
+            let config = Realm.Configuration(schemaVersion: 2)
             Realm.Configuration.defaultConfiguration = config
             localRealm = try Realm()
         } catch {

@@ -7,13 +7,16 @@
 
 import UIKit
 
-class OngoingTaskTableViewCell: UITableViewCell {
+final class OngoingTaskTableViewCell: UITableViewCell {
     private let taskName = UILabel()
     private let doneButton = UIButton()
     static let reuseID = "AccountSummaryCell"
-    static let rowHeight: CGFloat = 100
+    static let rowHeight: CGFloat = 150
     
-    
+    func configure(with task: Task) {
+        taskName.text = task.title
+    }
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -28,6 +31,7 @@ class OngoingTaskTableViewCell: UITableViewCell {
 extension OngoingTaskTableViewCell {
     
     private func setup() {
+        self.contentView.backgroundColor = .appBackground
         //Button
         let imageConfiguration = UIImage.SymbolConfiguration(hierarchicalColor: .green)
         let image = UIImage(systemName: "checkmark.seal.fill", withConfiguration: imageConfiguration) as UIImage?

@@ -177,9 +177,9 @@
 		E7F6C8FF292BE2CA00E6A20B /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
+				E7AC5FA529315793004670BD /* Protocols */,
 				E77C008D2931783D00807FB5 /* Extension */,
 				E7F6C900292BE2CA00E6A20B /* AppDelegate.swift */,
-				E7AC5FA529315793004670BD /* Protocols */,
 				E7653708292C0007005FD271 /* Model */,
 				E765370B292C0688005FD271 /* Controller */,
 				E7653705292BFDFE005FD271 /* View */,
