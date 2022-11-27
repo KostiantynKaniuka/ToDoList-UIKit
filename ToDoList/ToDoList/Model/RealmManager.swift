@@ -8,18 +8,19 @@
 import Foundation
 import RealmSwift
 
-class RealmManager: ObservableObject {
+class RealmManager: ObservableObject {    
     private(set) var localRealm: Realm?
     @Published private(set) var tasks: [Task] = []
-    
+        
     init() {
+        
         openRealm()
         getTasks()
     }
     
     func openRealm() {
         do {
-            let config = Realm.Configuration(schemaVersion: 2)
+            let config = Realm.Configuration(schemaVersion: 3)
             Realm.Configuration.defaultConfiguration = config
             localRealm = try Realm()
         } catch {
@@ -52,15 +53,16 @@ class RealmManager: ObservableObject {
         }
     }
     
-    func updateTask(id: ObjectId, completed: Bool) {
+    func updateTask(id: ObjectId, completed: Bool, date: Date?) {
         if let localRealm = localRealm {
             do {
-                let tasksToUpdate = localRealm.objects(Task.self).filter(NSPredicate(format: "id == %@", id))
+                let tasksToUpdate = localRealm.objects(Task.self).filter(NSPredicate(format: "_id == %@", id))
                 guard !tasksToUpdate.isEmpty else { return }
                 try localRealm.write {
                     tasksToUpdate[0].completed = completed
+                    tasksToUpdate[0].doneAt = date
                     getTasks()
-                    print("Updated task with id\(id)! Completed status: \(completed)")
+                    print("Updated task with id\(id)! Completed status: \(completed), Date of additing: \(String(describing: date))")
                 }
             } catch {
                 print("Error updating task \(id) to Realm: \(error)")

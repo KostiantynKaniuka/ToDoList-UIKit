@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = .appBackground
         window?.rootViewController = navigationController
         
+        //print(Realm.Configuration.defaultConfiguration.fileURL!)
+        
         return true
     }
 }

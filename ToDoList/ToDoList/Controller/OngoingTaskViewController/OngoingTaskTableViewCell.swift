@@ -10,8 +10,11 @@ import UIKit
 final class OngoingTaskTableViewCell: UITableViewCell {
     private let taskName = UILabel()
     private let doneButton = UIButton()
-    static let reuseID = "AccountSummaryCell"
-    static let rowHeight: CGFloat = 150
+    static private let rowHeight: CGFloat = 150
+    static let reuseID = "ongoingTaskCell"
+    static weak var delegate: DoneTaskTableViewControllerDelegate?
+    
+    var doneButtonDidTap: (() -> Void)?
     
     func configure(with task: Task) {
         taskName.text = task.title
@@ -21,10 +24,16 @@ final class OngoingTaskTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
         layout()
+        doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func doneButtonTapped(_ sender: UIButton) {
+        doneButtonDidTap?()
+        OngoingTaskTableViewCell.delegate?.didDoneButtonTapped()
     }
 }
 
@@ -33,12 +42,12 @@ extension OngoingTaskTableViewCell {
     private func setup() {
         self.contentView.backgroundColor = .appBackground
         //Button
-        let imageConfiguration = UIImage.SymbolConfiguration(hierarchicalColor: .green)
-        let image = UIImage(systemName: "checkmark.seal.fill", withConfiguration: imageConfiguration) as UIImage?
-        var calendarButtonconfiguration = UIButton.Configuration.gray()
-        calendarButtonconfiguration.baseBackgroundColor = .clear
-        calendarButtonconfiguration.cornerStyle = .capsule
-        doneButton.configuration = calendarButtonconfiguration
+        let imageConfiguration = UIImage.SymbolConfiguration(hierarchicalColor: .systemBlue)
+        let image = UIImage(systemName: "circle.circle", withConfiguration: imageConfiguration) as UIImage?
+        var doneButtonconfiguration = UIButton.Configuration.gray()
+        doneButtonconfiguration.baseBackgroundColor = .clear
+        doneButtonconfiguration.cornerStyle = .capsule
+        doneButton.configuration = doneButtonconfiguration
         doneButton.setImage(image, for: .normal)
         //Label
         taskName.text = "Task name"
