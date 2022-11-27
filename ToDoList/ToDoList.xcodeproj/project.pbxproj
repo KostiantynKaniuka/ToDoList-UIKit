@@ -21,6 +21,7 @@
 		E765370F292C170D005FD271 /* DoneTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E765370E292C170D005FD271 /* DoneTaskTableViewController.swift */; };
 		E7653711292C2B5A005FD271 /* NewTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7653710292C2B5A005FD271 /* NewTaskViewController.swift */; };
 		E76B2CBA2933CE8F0002B4AA /* DoneTaskTableViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76B2CB92933CE8F0002B4AA /* DoneTaskTableViewControllerDelegate.swift */; };
+		E76B2CBC2933EA8A0002B4AA /* ShortDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76B2CBB2933EA8A0002B4AA /* ShortDescriptionViewController.swift */; };
 		E77C008C2931783600807FB5 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77C008B2931783600807FB5 /* DateExtension.swift */; };
 		E7A86A83292D77E70071D5AD /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A86A82292D77E70071D5AD /* Task.swift */; };
 		E7A86A86292D7B540071D5AD /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = E7A86A85292D7B540071D5AD /* Realm */; };
@@ -49,6 +50,7 @@
 		E765370E292C170D005FD271 /* DoneTaskTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTaskTableViewController.swift; sourceTree = "<group>"; };
 		E7653710292C2B5A005FD271 /* NewTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskViewController.swift; sourceTree = "<group>"; };
 		E76B2CB92933CE8F0002B4AA /* DoneTaskTableViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTaskTableViewControllerDelegate.swift; sourceTree = "<group>"; };
+		E76B2CBB2933EA8A0002B4AA /* ShortDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortDescriptionViewController.swift; sourceTree = "<group>"; };
 		E77C008B2931783600807FB5 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		E7A86A82292D77E70071D5AD /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		E7A86A89292D7BB40071D5AD /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			children = (
 				E7F6C904292BE2CA00E6A20B /* MainViewController.swift */,
 				E7653710292C2B5A005FD271 /* NewTaskViewController.swift */,
+				E76B2CBB2933EA8A0002B4AA /* ShortDescriptionViewController.swift */,
 				E7AC5FA429314264004670BD /* OngoingTaskViewController */,
 				E72B812329339E7B00F5DC3C /* DoneTaskViewController */,
 			);
@@ -191,9 +194,9 @@
 		E7F6C8FF292BE2CA00E6A20B /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
+				E7F6C900292BE2CA00E6A20B /* AppDelegate.swift */,
 				E7AC5FA529315793004670BD /* Protocols */,
 				E77C008D2931783D00807FB5 /* Extension */,
-				E7F6C900292BE2CA00E6A20B /* AppDelegate.swift */,
 				E765370B292C0688005FD271 /* Controller */,
 				E7653708292C0007005FD271 /* Model */,
 				E7653705292BFDFE005FD271 /* View */,
@@ -285,6 +288,7 @@
 				E765370A292C0037005FD271 /* SegmentSection.swift in Sources */,
 				E7F6C905292BE2CA00E6A20B /* MainViewController.swift in Sources */,
 				E765370F292C170D005FD271 /* DoneTaskTableViewController.swift in Sources */,
+				E76B2CBC2933EA8A0002B4AA /* ShortDescriptionViewController.swift in Sources */,
 				E7A86A8A292D7BB40071D5AD /* RealmManager.swift in Sources */,
 				E71C91F8292E7C6200443A43 /* SaveTaskButton.swift in Sources */,
 				E7AC5FA329313E4E004670BD /* OngoingTaskTableViewCell.swift in Sources */,

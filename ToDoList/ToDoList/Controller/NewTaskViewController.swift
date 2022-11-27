@@ -20,6 +20,7 @@ final class NewTaskViewController: UIViewController {
     private var subscribers = Set<AnyCancellable>()
     @Published private var taskString: String?
     static weak var delegate: MainViewControllerDelegate?
+    
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,7 @@ final class NewTaskViewController: UIViewController {
         super.viewDidAppear(animated)
         taskTextField.becomeFirstResponder()
         saveTaskButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
+        calendarButton.addTarget(self, action: #selector(calendarButtonPressed), for: .touchUpInside)
     }
     
     //MARK: - Methods
@@ -62,6 +64,10 @@ final class NewTaskViewController: UIViewController {
         let task = Task()
         task.title = taskTextField.text ?? ""
         NewTaskViewController.delegate?.didAddTask(task)
+    }
+    
+    @objc private func calendarButtonPressed() {
+        taskTextField.resignFirstResponder()
     }
     
     //MARK: - Keyboard Controll

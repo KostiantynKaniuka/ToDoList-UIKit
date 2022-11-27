@@ -12,7 +12,6 @@ final class DoneTaskTableViewCell: UITableViewCell {
     private let tickButton = UIButton()
     static private let rowHeight: CGFloat = 150
     static let reuseID = "doneTaskCell"
-    
     var doneButtonDidTap: (() -> Void)?
     
     func configure(with task: Task) {
@@ -63,7 +62,6 @@ extension DoneTaskTableViewCell {
         NSLayoutConstraint.activate([
             tickButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             tickButton.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 1),
-            
             taskName.centerYAnchor.constraint(equalTo: tickButton.centerYAnchor),
             taskName.leadingAnchor.constraint(equalTo: tickButton.trailingAnchor, constant: 16)
         ])

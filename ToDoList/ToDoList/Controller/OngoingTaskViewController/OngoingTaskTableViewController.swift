@@ -11,12 +11,12 @@ import RealmSwift
 final class OngoingTaskTableViewController: UITableViewController {
     private let realmManager = RealmManager()
     private var newTasks: Results<Task>?
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.backgroundColor = .appBackground
         tableView.register(OngoingTaskTableViewCell.self, forCellReuseIdentifier: OngoingTaskTableViewCell.reuseID)
-       readTaskAndUpdateUi()
+        readTaskAndUpdateUi()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -29,7 +29,7 @@ final class OngoingTaskTableViewController: UITableViewController {
     }
     
     private func handleDoneButton(for task: Task) {
-         let id = task._id
+        let id = task._id
         realmManager.updateTask(id: id, completed: true, date: Date())
         tableView.reloadData()
     }
@@ -50,5 +50,31 @@ extension OngoingTaskTableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return newTasks?.count ?? 1
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        //Edit
+        let editAction = UIContextualAction(style: .normal, title: "Edit", handler: { (action, view, success) in
+            self.present(ShortDescriptionViewController(), animated: true)
+        })
+        //Edit
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete", handler: { (action, view, success) in
+            let task = self.newTasks?[indexPath.row] ?? Task()
+            let id = task._id
+            self.realmManager.deleteTask(id: id)
+            tableView.beginUpdates()
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.endUpdates()
+        })
+        //Button style settings
+        deleteAction.backgroundColor = .red
+        deleteAction.image = UIImage(systemName: "trash")
+        editAction.backgroundColor = .systemBlue
+        editAction.image = UIImage(systemName: "pencil")
+        return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
     }
 }

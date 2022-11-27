@@ -12,8 +12,6 @@ class DoneTaskTableViewController: UITableViewController {
     private let realmManager = RealmManager()
     private var doneTasks: Results<Task>?
    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         OngoingTaskTableViewCell.delegate = self
@@ -26,7 +24,6 @@ class DoneTaskTableViewController: UITableViewController {
         doneTasks = realmManager.localRealm?.objects(Task.self).filter("completed = true").sorted(byKeyPath: "dateOfAdding", ascending: false)
         tableView.reloadData()
     }
-    
 }
 
 extension DoneTaskTableViewController {
@@ -41,6 +38,21 @@ extension DoneTaskTableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return  doneTasks?.count ?? 1
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let task = doneTasks?[indexPath.row] ?? Task()
+            let id = task._id
+            realmManager.deleteTask(id: id)
+            tableView.beginUpdates()
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.endUpdates()
+        }
     }
 }
 
