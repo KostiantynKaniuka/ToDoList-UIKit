@@ -28,5 +28,9 @@ final class SaveTaskButton: UIButton {
         saveButtonConfiguration.baseBackgroundColor = .black
         self.configuration = saveButtonConfiguration
         self.setAttributedTitle(attributedText, for: .normal)
+        self.layer.shadowRadius = 3.0
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSizeMake(1.0, 1.0)
+        self.layer.shadowOpacity = 1.0
     }
 }

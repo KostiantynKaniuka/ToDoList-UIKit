@@ -12,6 +12,8 @@ final class OngoingTaskTableViewController: UITableViewController {
     private let realmManager = RealmManager()
     private var newTasks: Results<Task>?
     
+    static weak var delegate: SendDataToDescription?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.backgroundColor = .appBackground
@@ -52,6 +54,13 @@ extension OngoingTaskTableViewController {
         return newTasks?.count ?? 1
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let task = newTasks?[indexPath.row] ?? Task()
+        self.present(DescriptionViewController(), animated: true) {
+            OngoingTaskTableViewController.delegate?.didSendData(from: task)
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -59,7 +68,7 @@ extension OngoingTaskTableViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         //Edit
         let editAction = UIContextualAction(style: .normal, title: "Edit", handler: { (action, view, success) in
-            self.present(ShortDescriptionViewController(), animated: true)
+            self.present(DescriptionViewController(), animated: true)
         })
         //Edit
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete", handler: { (action, view, success) in

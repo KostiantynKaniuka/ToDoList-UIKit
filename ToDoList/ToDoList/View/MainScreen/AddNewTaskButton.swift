@@ -26,5 +26,9 @@ final class AddNewTaskButton: UIButton {
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 25, leading: 25, bottom: 25, trailing: 25)
         self.configuration = configuration
         self.setImage(image, for: .normal)
+        self.layer.shadowRadius = 3.0
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSizeMake(1.0, 1.0)
+        self.layer.shadowOpacity = 1.0
     }
 }

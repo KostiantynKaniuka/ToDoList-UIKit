@@ -26,5 +26,9 @@ final class CalendarButton: UIButton {
         calendarButtonconfiguration.cornerStyle = .capsule
         self.configuration = calendarButtonconfiguration
         self.setImage(image, for: .normal)
+        self.layer.shadowRadius = 3.0
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSizeMake(1.0, 1.0)
+        self.layer.shadowOpacity = 0.5
     }
 }

@@ -25,5 +25,6 @@ final class TaskTextField: UITextField {
         self.layer.borderColor = UIColor.lightGray.cgColor
         self.font = UIFont(name: "San Francisco", size: 17)
         self.placeholder = " Enter a new task"
+        self.layer.shadowRadius = 3.0
     }
  }

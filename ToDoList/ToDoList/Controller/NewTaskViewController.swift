@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import RealmSwift
 
 final class NewTaskViewController: UIViewController {
     //MARK: - Outlets
@@ -19,21 +18,20 @@ final class NewTaskViewController: UIViewController {
     private let saveTaskButton = SaveTaskButton()
     private let calendarButton = CalendarButton()
     private let deadlineLabel = UILabel()
+    private lazy var calendarView: CalendarView = {
+        let view = CalendarView()
+        view.delegate = self
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
+    //MARK: - Properties
     private let realmManager = RealmManager()
     private var subscribers = Set<AnyCancellable>()
     @Published private var taskString: String?
     @Published private var deadline: Date?
     static weak var delegate: MainViewControllerDelegate?
-    static weak var deadlineDelegate: DeadlineDelegate?
-    
-    
-    private lazy var calendarView: CalendarView = {
-        let view = CalendarView()
-        view.delegate = self
-        view.translatesAutoresizingMaskIntoConstraints = false
-    
-        return view
-    }()
     
     //MARK: - Life cycle
     override func viewDidLoad() {
@@ -67,7 +65,6 @@ final class NewTaskViewController: UIViewController {
         $deadline.sink { date in
             self.deadlineLabel.text = date?.toString() ?? ""
         }.store(in: &subscribers)
-        
     }
     
     private func setupGestures() {
@@ -76,6 +73,11 @@ final class NewTaskViewController: UIViewController {
         view.addGestureRecognizer(tapGestures)
     }
     
+    @objc private func dismissViewController() {
+        dismiss(animated: true)
+    }
+    
+    //MARK: - Calendar Actions
     private func showCalendar() {
         view.addSubview(calendarView)
         NSLayoutConstraint.activate([
@@ -89,9 +91,10 @@ final class NewTaskViewController: UIViewController {
         calendarView.removeFromSuperview()
         completion()
     }
-   
-    @objc private func dismissViewController() {
-        dismiss(animated: true)
+    
+    @objc private func calendarButtonPressed() {
+        taskTextField.resignFirstResponder()
+        showCalendar()
     }
     
     @objc private func saveButtonPressed() {
@@ -101,21 +104,10 @@ final class NewTaskViewController: UIViewController {
         NewTaskViewController.delegate?.didAddTask(task)
     }
     
-//    func addDeadline() {
-//        let task = Task()
-//        let id = task._id
-//        realmManager.deadLineAdded(id: id, deadlineAddedAt: deadline)
-//    }
-    
-    @objc private func calendarButtonPressed() {
-        taskTextField.resignFirstResponder()
-        showCalendar()
-    }
-    
     //MARK: - Keyboard Controll
     private func observeKeyboard() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     private func getKeyboarHeight(notification: Notification) -> CGFloat {
@@ -138,68 +130,9 @@ final class NewTaskViewController: UIViewController {
     }
 }
 
-extension NewTaskViewController {
-    //MARK: - Views configuration
-    private func style() {
-        backgroundView.backgroundColor = .AddNewTaskScreenColor
-        bottomView.backgroundColor = .white
-        deadlineLabel.text = "dead line"
-        deadlineLabel.font = UIFont(name: "San Francisco", size: 17)
-        deadlineLabel.textAlignment = .center
-    }
-    
-    //MARK: - Layout
-    private func layout() {
-        backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        bottomView.translatesAutoresizingMaskIntoConstraints = false
-        verticalStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        view.addSubview(backgroundView)
-        view.addSubview(bottomView)
-        view.addSubview(verticalStackView)
-       
-        horizontalStackView.addArrangedSubview(saveTaskButton)
-        horizontalStackView.addArrangedSubview(deadlineLabel)
-        horizontalStackView.addArrangedSubview(calendarButton)
-        verticalStackView.addArrangedSubview(taskTextField)
-        verticalStackView.addArrangedSubview(horizontalStackView)
-    
-        NSLayoutConstraint.activate([
-            backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            //BottomView
-            bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            bottomView.heightAnchor.constraint(equalToConstant: 200),
-            //Vertical Stack View
-            verticalStackView.leadingAnchor.constraint(equalToSystemSpacingAfter:
-                                                        bottomView.leadingAnchor,
-                                                        multiplier: 2),
-            bottomView.trailingAnchor.constraint(equalToSystemSpacingAfter:
-                                                 verticalStackView.trailingAnchor,
-                                                 multiplier: 2),
-            verticalStackView.topAnchor.constraint(equalToSystemSpacingBelow:
-                                                    bottomView.topAnchor,
-                                                    multiplier: 1),
-            backgroundView.bottomAnchor.constraint(equalToSystemSpacingBelow:
-                                         verticalStackView.bottomAnchor,
-                                         multiplier: 2),
-            // Buttons
-            saveTaskButton.heightAnchor.constraint(equalToConstant: 40),
-            saveTaskButton.widthAnchor.constraint(equalToConstant: 100),
-            calendarButton.heightAnchor.constraint(equalToConstant: 40),
-            calendarButton.widthAnchor.constraint(equalToConstant: 40),
-            //Text Field
-            taskTextField.heightAnchor.constraint(equalToConstant: 40)
-        ])
-    }
-}
-
+//MARK: - Gesture Recognizer Delegate
 extension NewTaskViewController: UIGestureRecognizerDelegate {
-
+    
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if calendarView.isDescendant(of: view) {
             if touch.view?.isDescendant(of: calendarView) == false {
@@ -213,6 +146,7 @@ extension NewTaskViewController: UIGestureRecognizerDelegate {
     }
 }
 
+//MARK: - CalendarView Delegate
 extension NewTaskViewController: CalendarViewDelegate {
     
     func calendarViewDidSelectDate(date: Date) {
@@ -227,5 +161,63 @@ extension NewTaskViewController: CalendarViewDelegate {
             self.taskTextField.becomeFirstResponder()
             self.deadline = nil
         }
+    }
+}
+
+extension NewTaskViewController {
+    //MARK: - Views configuration
+    private func style() {
+        backgroundView.backgroundColor = .AddNewTaskScreenColor
+        bottomView.backgroundColor = .white
+        deadlineLabel.text = "select deadline >"
+        deadlineLabel.font = UIFont(name: "San Francisco", size: 17)
+        deadlineLabel.textAlignment = .center
+    }
+    
+    //MARK: - Layout
+    private func layout() {
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        bottomView.translatesAutoresizingMaskIntoConstraints = false
+        verticalStackView.translatesAutoresizingMaskIntoConstraints = false
+        //addViews
+        view.addSubview(backgroundView)
+        view.addSubview(bottomView)
+        view.addSubview(verticalStackView)
+        horizontalStackView.addArrangedSubview(saveTaskButton)
+        horizontalStackView.addArrangedSubview(deadlineLabel)
+        horizontalStackView.addArrangedSubview(calendarButton)
+        verticalStackView.addArrangedSubview(taskTextField)
+        verticalStackView.addArrangedSubview(horizontalStackView)
+        //Constraints
+        NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            //BottomView
+            bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bottomView.heightAnchor.constraint(equalToConstant: 200),
+            //Vertical Stack View
+            verticalStackView.leadingAnchor.constraint(equalToSystemSpacingAfter:
+                                                        bottomView.leadingAnchor,
+                                                       multiplier: 2),
+            bottomView.trailingAnchor.constraint(equalToSystemSpacingAfter:
+                                                    verticalStackView.trailingAnchor,
+                                                 multiplier: 2),
+            verticalStackView.topAnchor.constraint(equalToSystemSpacingBelow:
+                                                    bottomView.topAnchor,
+                                                   multiplier: 1),
+            backgroundView.bottomAnchor.constraint(equalToSystemSpacingBelow:
+                                                    verticalStackView.bottomAnchor,
+                                                   multiplier: 2),
+            // Buttons
+            saveTaskButton.heightAnchor.constraint(equalToConstant: 40),
+            saveTaskButton.widthAnchor.constraint(equalToConstant: 100),
+            calendarButton.heightAnchor.constraint(equalToConstant: 40),
+            calendarButton.widthAnchor.constraint(equalToConstant: 40),
+            //Text Field
+            taskTextField.heightAnchor.constraint(equalToConstant: 40)
+        ])
     }
 }
