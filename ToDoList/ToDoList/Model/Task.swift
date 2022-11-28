@@ -13,8 +13,9 @@ class Task: Object, ObjectKeyIdentifiable {
     @Persisted var title = ""
     @Persisted var dateOfAdding = Date().description(with: .current)
     @Persisted var completed = false
+    @Persisted var deadlineDate: Date?
     @Persisted var doneAt: Date?
-    @Persisted var deadline: Date? = nil 
+   
 }
 
 

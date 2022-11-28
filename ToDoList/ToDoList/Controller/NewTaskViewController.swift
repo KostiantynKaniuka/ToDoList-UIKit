@@ -24,6 +24,8 @@ final class NewTaskViewController: UIViewController {
     @Published private var taskString: String?
     @Published private var deadline: Date?
     static weak var delegate: MainViewControllerDelegate?
+    static weak var deadlineDelegate: DeadlineDelegate?
+    
     
     private lazy var calendarView: CalendarView = {
         let view = CalendarView()
@@ -64,7 +66,6 @@ final class NewTaskViewController: UIViewController {
         //observe dealline
         $deadline.sink { date in
             self.deadlineLabel.text = date?.toString() ?? ""
-            self.saveTaskButton.isEnabled = self.deadlineLabel.text == nil
         }.store(in: &subscribers)
         
     }
@@ -96,8 +97,15 @@ final class NewTaskViewController: UIViewController {
     @objc private func saveButtonPressed() {
         let task = Task()
         task.title = taskTextField.text ?? ""
+        task.deadlineDate = deadline
         NewTaskViewController.delegate?.didAddTask(task)
     }
+    
+//    func addDeadline() {
+//        let task = Task()
+//        let id = task._id
+//        realmManager.deadLineAdded(id: id, deadlineAddedAt: deadline)
+//    }
     
     @objc private func calendarButtonPressed() {
         taskTextField.resignFirstResponder()
@@ -215,7 +223,7 @@ extension NewTaskViewController: CalendarViewDelegate {
     }
     
     func calendarViewDidTapRemoveButton() {
-        dismissCalendarView {
+        dismissCalendarView { [unowned self] in
             self.taskTextField.becomeFirstResponder()
             self.deadline = nil
         }

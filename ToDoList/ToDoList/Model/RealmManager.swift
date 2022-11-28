@@ -19,7 +19,7 @@ class RealmManager: ObservableObject {
     
     func openRealm() {
         do {
-            let config = Realm.Configuration(schemaVersion: 6)
+            let config = Realm.Configuration(schemaVersion: 14)
             Realm.Configuration.defaultConfiguration = config
             localRealm = try Realm()
         } catch {
@@ -27,11 +27,11 @@ class RealmManager: ObservableObject {
         }
     }
     
-    func addTask(title: String) {
+    func addTask(title: String, deadlineDate: Date?) {
         if let localRealm = localRealm {
             do {
                 try localRealm.write {
-                    let newTask = Task(value: ["title": title, "dateOfAdding": Date().description(with: .current), "completed": false])
+                    let newTask = Task(value: ["title": title, "dateOfAdding": Date().description(with: .current), "completed": false, "deadlineDate" : deadlineDate as Any])
                     localRealm.add(newTask)
                     getTasks()
                     print("Added new task to Realm: \(newTask)")
@@ -68,6 +68,22 @@ class RealmManager: ObservableObject {
             }
         }
     }
+    
+//    func deadLineAdded(id: ObjectId, deadlineAddedAt: Date?) {
+//        if let localRealm = localRealm {
+//            do {
+//                let tasksToUpdate = localRealm.objects(Task.self).filter(NSPredicate(format: "_id == %@", id))
+//                guard !tasksToUpdate.isEmpty else { return }
+//                try localRealm.write {
+//                    tasksToUpdate[0].deadlineDate = deadlineAddedAt
+//                    getTasks()
+//                    print("Updated task with id\(id)! Deadline at: \(String(describing: deadlineAddedAt))")
+//                }
+//            } catch {
+//                print("Error updating task \(id) to Realm: \(error)")
+//            }
+//        }
+//    }
     
     func deleteTask(id: ObjectId) {
         if let localRealm = localRealm {

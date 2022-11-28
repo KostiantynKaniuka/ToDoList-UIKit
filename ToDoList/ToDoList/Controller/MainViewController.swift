@@ -116,7 +116,7 @@ extension MainViewController: MainViewControllerDelegate {
     
     func didAddTask(_ task: Task) {
         presentedViewController?.dismiss(animated: true, completion: { [unowned self] in
-            self.realm.addTask(title: task.title)
+            self.realm.addTask(title: task.title, deadlineDate: task.deadlineDate)
             ongoingTaskViewController.readTaskAndUpdateUi()
         })
     }

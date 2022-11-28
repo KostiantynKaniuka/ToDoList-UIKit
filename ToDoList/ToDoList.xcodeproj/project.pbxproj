@@ -27,6 +27,7 @@
 		E76B2CBC2933EA8A0002B4AA /* ShortDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76B2CBB2933EA8A0002B4AA /* ShortDescriptionViewController.swift */; };
 		E7703FCA2934F94A00F951C1 /* CalendarViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7703FC92934F94A00F951C1 /* CalendarViewDelegate.swift */; };
 		E7703FCC2934FCB500F951C1 /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7703FCB2934FCB500F951C1 /* Extension+Date.swift */; };
+		E7703FCE293521BB00F951C1 /* DeadlineDelegate .swift in Sources */ = {isa = PBXBuildFile; fileRef = E7703FCD293521BB00F951C1 /* DeadlineDelegate .swift */; };
 		E77C008C2931783600807FB5 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77C008B2931783600807FB5 /* DateExtension.swift */; };
 		E7A86A83292D77E70071D5AD /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A86A82292D77E70071D5AD /* Task.swift */; };
 		E7A86A86292D7B540071D5AD /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = E7A86A85292D7B540071D5AD /* Realm */; };
@@ -63,6 +64,7 @@
 		E76B2CBB2933EA8A0002B4AA /* ShortDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortDescriptionViewController.swift; sourceTree = "<group>"; };
 		E7703FC92934F94A00F951C1 /* CalendarViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewDelegate.swift; sourceTree = "<group>"; };
 		E7703FCB2934FCB500F951C1 /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
+		E7703FCD293521BB00F951C1 /* DeadlineDelegate .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeadlineDelegate .swift"; sourceTree = "<group>"; };
 		E77C008B2931783600807FB5 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		E7A86A82292D77E70071D5AD /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		E7A86A89292D7BB40071D5AD /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				E7AC5FA6293157D8004670BD /* MainViewControllerDelegate.swift */,
 				E76B2CB92933CE8F0002B4AA /* DoneTaskTableViewControllerDelegate.swift */,
 				E7703FC92934F94A00F951C1 /* CalendarViewDelegate.swift */,
+				E7703FCD293521BB00F951C1 /* DeadlineDelegate .swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				E71C91FE292E902900443A43 /* HorizontalStackView.swift in Sources */,
 				E71C91F3292E741100443A43 /* TaskTextField.swift in Sources */,
 				E7703FCA2934F94A00F951C1 /* CalendarViewDelegate.swift in Sources */,
+				E7703FCE293521BB00F951C1 /* DeadlineDelegate .swift in Sources */,
 				E76B2CBA2933CE8F0002B4AA /* DoneTaskTableViewControllerDelegate.swift in Sources */,
 				E7653711292C2B5A005FD271 /* NewTaskViewController.swift in Sources */,
 			);
