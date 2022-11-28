@@ -13,14 +13,13 @@ class RealmManager: ObservableObject {
     @Published private(set) var tasks: [Task] = []
         
     init() {
-        
         openRealm()
         getTasks()
     }
     
     func openRealm() {
         do {
-            let config = Realm.Configuration(schemaVersion: 3)
+            let config = Realm.Configuration(schemaVersion: 6)
             Realm.Configuration.defaultConfiguration = config
             localRealm = try Realm()
         } catch {

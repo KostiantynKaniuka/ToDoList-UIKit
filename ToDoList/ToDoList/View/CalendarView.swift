@@ -9,6 +9,8 @@ import UIKit
 import FSCalendar
 
 class CalendarView: UIView {
+    weak var delegate: CalendarViewDelegate?
+    
     private lazy var calendar: FSCalendar = {
         let calendar = FSCalendar()
         calendar.translatesAutoresizingMaskIntoConstraints = false
@@ -18,7 +20,7 @@ class CalendarView: UIView {
     }()
     
     private lazy var titleLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = "Select deadline"
         label.font = UIFont(name: "San Francisco", size: 17)
         label.textAlignment = .center
@@ -45,9 +47,17 @@ class CalendarView: UIView {
         return stackView
     }()
     
-     override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+    }
+    
+    override func willMove(toSuperview newSuperview: UIView?) {
+        if calendar.selectedDate == nil {
+            removeButton.removeFromSuperview()
+        } else if removeButton.isDescendant(of: stackView) == false {
+            stackView.addArrangedSubview(removeButton)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -69,13 +79,16 @@ class CalendarView: UIView {
     }
     
     @objc func removeButtonTapped(_ sender: UIButton) {
-        print("remove button tapped")
+        if let selecredDate = calendar.selectedDate {
+            calendar.deselect(selecredDate)
+            delegate?.calendarViewDidTapRemoveButton()
+        }
     }
 }
-
-extension CalendarView: FSCalendarDelegate {
     
-    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print("date selected: \(date)")
+    extension CalendarView: FSCalendarDelegate {
+        
+        func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+            delegate?.calendarViewDidSelectDate(date: date)
+        }
     }
-}

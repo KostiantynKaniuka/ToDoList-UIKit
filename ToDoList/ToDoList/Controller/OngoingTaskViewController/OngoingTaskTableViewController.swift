@@ -29,8 +29,6 @@ final class OngoingTaskTableViewController: UITableViewController {
     }
     
     private func handleDoneButton(for task: Task) {
-        let id = task._id
-        realmManager.updateTask(id: id, completed: true, date: Date())
         tableView.reloadData()
     }
 }

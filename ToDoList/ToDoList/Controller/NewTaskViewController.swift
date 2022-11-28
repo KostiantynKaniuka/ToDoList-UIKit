@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import RealmSwift
 
 final class NewTaskViewController: UIViewController {
     //MARK: - Outlets
@@ -17,12 +18,16 @@ final class NewTaskViewController: UIViewController {
     private let taskTextField = TaskTextField()
     private let saveTaskButton = SaveTaskButton()
     private let calendarButton = CalendarButton()
+    private let deadlineLabel = UILabel()
+    private let realmManager = RealmManager()
     private var subscribers = Set<AnyCancellable>()
     @Published private var taskString: String?
+    @Published private var deadline: Date?
     static weak var delegate: MainViewControllerDelegate?
     
     private lazy var calendarView: CalendarView = {
         let view = CalendarView()
+        view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
     
         return view
@@ -56,6 +61,12 @@ final class NewTaskViewController: UIViewController {
         $taskString.sink { (text) in
             self.saveTaskButton.isEnabled = text?.isEmpty == false
         }.store(in: &subscribers)
+        //observe dealline
+        $deadline.sink { date in
+            self.deadlineLabel.text = date?.toString() ?? ""
+            self.saveTaskButton.isEnabled = self.deadlineLabel.text == nil
+        }.store(in: &subscribers)
+        
     }
     
     private func setupGestures() {
@@ -124,6 +135,9 @@ extension NewTaskViewController {
     private func style() {
         backgroundView.backgroundColor = .AddNewTaskScreenColor
         bottomView.backgroundColor = .white
+        deadlineLabel.text = "dead line"
+        deadlineLabel.font = UIFont(name: "San Francisco", size: 17)
+        deadlineLabel.textAlignment = .center
     }
     
     //MARK: - Layout
@@ -132,11 +146,13 @@ extension NewTaskViewController {
         bottomView.translatesAutoresizingMaskIntoConstraints = false
         verticalStackView.translatesAutoresizingMaskIntoConstraints = false
         
+        
         view.addSubview(backgroundView)
         view.addSubview(bottomView)
         view.addSubview(verticalStackView)
        
         horizontalStackView.addArrangedSubview(saveTaskButton)
+        horizontalStackView.addArrangedSubview(deadlineLabel)
         horizontalStackView.addArrangedSubview(calendarButton)
         verticalStackView.addArrangedSubview(taskTextField)
         verticalStackView.addArrangedSubview(horizontalStackView)
@@ -165,6 +181,7 @@ extension NewTaskViewController {
                                          multiplier: 2),
             // Buttons
             saveTaskButton.heightAnchor.constraint(equalToConstant: 40),
+            saveTaskButton.widthAnchor.constraint(equalToConstant: 100),
             calendarButton.heightAnchor.constraint(equalToConstant: 40),
             calendarButton.widthAnchor.constraint(equalToConstant: 40),
             //Text Field
@@ -185,5 +202,22 @@ extension NewTaskViewController: UIGestureRecognizerDelegate {
             return false
         }
         return true
+    }
+}
+
+extension NewTaskViewController: CalendarViewDelegate {
+    
+    func calendarViewDidSelectDate(date: Date) {
+        dismissCalendarView { [unowned self] in
+            self.taskTextField.becomeFirstResponder()
+            self.deadline = date
+        }
+    }
+    
+    func calendarViewDidTapRemoveButton() {
+        dismissCalendarView {
+            self.taskTextField.becomeFirstResponder()
+            self.deadline = nil
+        }
     }
 }
