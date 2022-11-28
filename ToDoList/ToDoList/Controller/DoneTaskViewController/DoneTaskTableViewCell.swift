@@ -31,6 +31,7 @@ final class DoneTaskTableViewCell: UITableViewCell {
     
     @objc private func doneButtonTapped(_ sender: UIButton) {
         doneButtonDidTap?()
+        OngoingTaskTableViewCell.delegate?.didDoneButtonTapped()
     }
 }
 
