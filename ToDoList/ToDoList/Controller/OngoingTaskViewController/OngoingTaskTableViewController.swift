@@ -12,7 +12,7 @@ final class OngoingTaskTableViewController: UITableViewController {
     private let realmManager = RealmManager()
     private var newTasks: Results<Task>?
     
-    static weak var delegate: SendDataToDescription?
+    static weak var delegate: SendOngoingTaskDataToDescription?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +68,10 @@ extension OngoingTaskTableViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         //Edit
         let editAction = UIContextualAction(style: .normal, title: "Edit", handler: { (action, view, success) in
-            self.present(DescriptionViewController(), animated: true)
+            let task = self.newTasks?[indexPath.row] ?? Task()
+            self.present(DescriptionViewController(), animated: true) {
+                OngoingTaskTableViewController.delegate?.didSendData(from: task)
+            }
         })
         //Edit
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete", handler: { (action, view, success) in

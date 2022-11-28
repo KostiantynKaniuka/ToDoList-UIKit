@@ -11,6 +11,7 @@ import RealmSwift
 class DoneTaskTableViewController: UITableViewController {
     private let realmManager = RealmManager()
     private var doneTasks: Results<Task>?
+    static weak var delegate: SendDoneTaskDataToDescription?
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,13 @@ extension DoneTaskTableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return  doneTasks?.count ?? 1
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let task = doneTasks?[indexPath.row] ?? Task()
+        self.present(DescriptionViewController(), animated: true) {
+            DoneTaskTableViewController.delegate?.didSendDoneData(from: task)
+        }
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

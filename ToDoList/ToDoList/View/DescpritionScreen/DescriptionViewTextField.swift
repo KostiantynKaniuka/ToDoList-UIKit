@@ -31,10 +31,9 @@ class DescriptionTextField: UITextField {
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOffset = CGSizeMake(1.0, 1.0)
         self.layer.shadowOpacity = 1.0
-        self.text = "Enter Text"
         self.textAlignment = .center
         self.heightAnchor.constraint(equalToConstant: 40).isActive = true
         self.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        //self.isEnabled = false
+        self.isEnabled = false
     }
 }
