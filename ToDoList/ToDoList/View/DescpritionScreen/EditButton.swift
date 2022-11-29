@@ -32,5 +32,3 @@ final class EditButton: UIButton {
             self.layer.shadowOpacity = 1.0
         }
 }
-    
-

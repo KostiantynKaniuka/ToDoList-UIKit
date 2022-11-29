@@ -9,36 +9,96 @@ import UIKit
 import RealmSwift
 
 final class DescriptionViewController: UIViewController {
+    //MARK: - Outlets
+    private let dummyView = UIView()
     private let taskNameTextField = DescriptionTextField()
     private let dateOfAddingTextField = DescriptionTextField()
     private let shortDescriptionTextField = DescriptionTextField()
     private let deadlineTextField = DescriptionTextField()
     private let completedDateTextField = DescriptionTextField()
+    //Stack Views
     private let verticalStackView = VerticalStackView()
-    private let horizontalStackView = HorizontalStackView()
+    private let actionButtonsStackView = HorizontalStackView()
+    //Labels
     private let taskNameLabel = NameLabel()
     private let dateOfAddingLabel = NameLabel()
     private let shortDescriptionLabel = NameLabel()
     private let deadlineLabel = NameLabel()
     private let completedDateLabel = NameLabel()
+    private let calendarLabel = NameLabel()
+    //Buttons
+    private let saveChangesButton = SaveChangesButton()
+    private let changeDateCalendarButton = CalendarButton()
     private let doneButton = DoneButton()
     private let editButton = EditButton()
     private let deleteButton = DeleteButton()
+    //MARK: - Properties
+    private let realmManafer = RealmManager()
+    private var taskId = ObjectId()
+    static weak var delegate: UpdateChanges?
     
+    //MARK: - Lifecycle
     override func viewDidLoad() {
+        super.viewDidLoad()
         OngoingTaskTableViewController.delegate = self
         DoneTaskTableViewController.delegate = self
-        super.viewDidLoad()
-        view.backgroundColor = .appBackground
-        verticalStackView.spacing = 8
+        editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        saveChangesButton.addTarget(self, action: #selector(SaveChangesButtonTapped), for: .touchUpInside)
         setupViews()
         layout()
+    }
+    
+    //MARK: - Methods
+    @objc private func SaveChangesButtonTapped(_sender: UIButton) {
+        let taskName = taskNameTextField.text ?? ""
+        let shortDescription = shortDescriptionTextField.text ?? ""
+        realmManafer.applyChanges(id: taskId, taskName: taskName, shortDescription: shortDescription)
+        DescriptionViewController.delegate?.refreshTableView()
+        taskNameTextField.isEnabled = false
+        shortDescriptionTextField.isEnabled = false
+        saveChangesButton.isHidden = true
+        changeDateCalendarButton.isHidden = true
+    }
+    
+    @objc private func editButtonTapped(_sender: UIButton) {
+        saveChangesButton.isHidden = false
+        changeDateCalendarButton.isHidden = false
+        taskNameTextField.isEnabled = true
+        shortDescriptionTextField.isEnabled = true
+        taskNameTextField.becomeFirstResponder()
+    }
+}
+
+extension DescriptionViewController: SendOngoingTaskDataToDescription {
+    
+    func didSendData(from task: Task) {
+        taskNameTextField.text = task.title
+        shortDescriptionTextField.text = task.shortDescription
+        dateOfAddingTextField.text = task.dateOfAdding.toString()
+        deadlineTextField.text = task.deadlineDate?.toString()
+        taskId = task._id
+    }
+}
+
+extension DescriptionViewController: SendDoneTaskDataToDescription {
+    
+    func didSendDoneData(from task: Task) {
+        taskNameTextField.text = task.title
+        shortDescriptionTextField.text = task.shortDescription
+        completedDateTextField.text = task.doneAt?.toString()
+        dateOfAddingTextField.text = task.dateOfAdding.toString()
+        deadlineTextField.text = task.deadlineDate?.toString()
+        taskId = task._id
     }
 }
 
 extension DescriptionViewController {
     
     private func setupViews() {
+        changeDateCalendarButton.isHidden = true
+        saveChangesButton.isHidden = true
+        view.backgroundColor = .appBackground
+        verticalStackView.spacing = 8
         view.layer.borderColor = UIColor.black.cgColor
         view.layer.borderWidth = 2
         taskNameLabel.text = "Task name"
@@ -49,12 +109,16 @@ extension DescriptionViewController {
     }
     
     private func layout() {
-        horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
+        dummyView.translatesAutoresizingMaskIntoConstraints = false
+        actionButtonsStackView.translatesAutoresizingMaskIntoConstraints = false
         verticalStackView.translatesAutoresizingMaskIntoConstraints = false
+        saveChangesButton.translatesAutoresizingMaskIntoConstraints = false
+        changeDateCalendarButton.translatesAutoresizingMaskIntoConstraints = false
+        calendarLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        horizontalStackView.addArrangedSubview(doneButton)
-        horizontalStackView.addArrangedSubview(editButton)
-        horizontalStackView.addArrangedSubview(deleteButton)
+        actionButtonsStackView.addArrangedSubview(doneButton)
+        actionButtonsStackView.addArrangedSubview(editButton)
+        actionButtonsStackView.addArrangedSubview(deleteButton)
         
         verticalStackView.addArrangedSubview(taskNameLabel)
         verticalStackView.addArrangedSubview(taskNameTextField)
@@ -68,38 +132,31 @@ extension DescriptionViewController {
         verticalStackView.addArrangedSubview(completedDateTextField)
         
         view.addSubview(verticalStackView)
-        view.addSubview(horizontalStackView)
+        view.addSubview(actionButtonsStackView)
+        view.addSubview(saveChangesButton)
+        view.addSubview(changeDateCalendarButton)
+        view.addSubview(calendarLabel)
         
         NSLayoutConstraint.activate([
             verticalStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 8),
             verticalStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
-            horizontalStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
-            horizontalStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            verticalStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            actionButtonsStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            actionButtonsStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            saveChangesButton.topAnchor.constraint(equalTo: verticalStackView.bottomAnchor, constant: 70),
+            saveChangesButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            changeDateCalendarButton.leadingAnchor.constraint(equalTo: saveChangesButton.trailingAnchor),
+            changeDateCalendarButton.centerYAnchor.constraint(equalTo: saveChangesButton.centerYAnchor),
             doneButton.heightAnchor.constraint(equalToConstant: 60),
             doneButton.widthAnchor.constraint(equalToConstant: 60),
             editButton.heightAnchor.constraint(equalToConstant: 60),
             editButton.widthAnchor.constraint(equalToConstant: 60),
             deleteButton.heightAnchor.constraint(equalToConstant: 60),
-            deleteButton.widthAnchor.constraint(equalToConstant: 60)
+            deleteButton.widthAnchor.constraint(equalToConstant: 60),
+            saveChangesButton.widthAnchor.constraint(equalToConstant: 100),
+            saveChangesButton.heightAnchor.constraint(equalToConstant: 50),
+            changeDateCalendarButton.widthAnchor.constraint(equalToConstant: 100),
+            changeDateCalendarButton.heightAnchor.constraint(equalToConstant: 50)
         ])
-    }
-}
-
-extension DescriptionViewController: SendOngoingTaskDataToDescription {
-    
-    func didSendData(from task: Task) {
-        taskNameTextField.text = task.title
-        dateOfAddingTextField.text = task.dateOfAdding.toString()
-        deadlineTextField.text = task.deadlineDate?.toString()
-    }
-}
-
-extension DescriptionViewController: SendDoneTaskDataToDescription {
-    
-    func didSendDoneData(from task: Task) {
-        taskNameTextField.text = task.title
-        completedDateTextField.text = task.doneAt?.toString()
-        dateOfAddingTextField.text = task.dateOfAdding.toString()
-        deadlineTextField.text = task.deadlineDate?.toString()
     }
 }

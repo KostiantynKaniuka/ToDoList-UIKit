@@ -15,4 +15,5 @@ class Task: Object, ObjectKeyIdentifiable {
     @Persisted var completed = false
     @Persisted var deadlineDate: Date?
     @Persisted var doneAt: Date?
+    @Persisted var shortDescription: String?
 }

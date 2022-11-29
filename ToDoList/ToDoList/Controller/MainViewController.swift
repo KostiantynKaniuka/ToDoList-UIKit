@@ -18,6 +18,7 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NewTaskViewController.delegate = self
+        DescriptionViewController.delegate = self
         style()
         layout()
         adjustSegmentControll()
@@ -116,8 +117,17 @@ extension MainViewController: MainViewControllerDelegate {
     
     func didAddTask(_ task: Task) {
         presentedViewController?.dismiss(animated: true, completion: { [unowned self] in
-            self.realm.addTask(title: task.title, deadlineDate: task.deadlineDate)
+            self.realm.addTask(title: task.title, deadlineDate: task.deadlineDate, shortDescription: task.shortDescription)
             ongoingTaskViewController.readTaskAndUpdateUi()
         })
     }
+}
+
+extension MainViewController: UpdateChanges {
+    func refreshTableView() {
+        ongoingTaskViewController.tableView.reloadData()
+        doneTaskViewController.tableView.reloadData()
+    }
+    
+    
 }

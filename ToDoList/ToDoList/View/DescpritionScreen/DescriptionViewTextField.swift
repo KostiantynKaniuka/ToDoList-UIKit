@@ -33,7 +33,6 @@ final class DescriptionTextField: UITextField {
         self.layer.shadowOpacity = 1.0
         self.textAlignment = .center
         self.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        self.widthAnchor.constraint(equalToConstant: 300).isActive = true
         self.isEnabled = false
     }
 }
