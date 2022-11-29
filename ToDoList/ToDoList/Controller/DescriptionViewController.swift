@@ -33,13 +33,15 @@ final class DescriptionViewController: UIViewController {
     private let doneButton = DoneButton()
     private let editButton = EditButton()
     private let deleteButton = DeleteButton()
+    
     //MARK: - Properties
+    //DataBase
     private let realmManafer = RealmManager()
     private var taskId = ObjectId()
+    //React to calendar
     @Published private var newDeadline:Date?
     private var subscribers = Set<AnyCancellable>()
     static weak var delegate: UpdateChanges?
-    
     private lazy var editCalendarView: EditCalendarView = {
         let calendarview = EditCalendarView()
         calendarview.delegate = self
@@ -52,21 +54,12 @@ final class DescriptionViewController: UIViewController {
         super.viewDidLoad()
         OngoingTaskTableViewController.delegate = self
         DoneTaskTableViewController.delegate = self
-        editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
-        saveChangesButton.addTarget(self, action: #selector(SaveChangesButtonTapped), for: .touchUpInside)
-        changeDateCalendarButton.addTarget(self, action: #selector(editCalendarButtonTapped), for: .touchUpInside)
         setupViews()
         layout()
         observeCalendar()
     }
     
-    //MARK: - Methods
-    private func observeCalendar() {
-        $newDeadline.sink { date in
-            self.deadlineTextField.text = date?.toString() ?? ""
-        }.store(in: &subscribers)
-    }
-    
+    //MARK: - Actions
     @objc private func SaveChangesButtonTapped(_sender: UIButton) {
         let taskName = taskNameTextField.text ?? ""
         let shortDescription = shortDescriptionTextField.text ?? ""
@@ -91,6 +84,8 @@ final class DescriptionViewController: UIViewController {
         showEditCalendar()
     }
     
+    //MARK: - Methods
+    //Calendar
     private func showEditCalendar() {
         view.addSubview(editCalendarView)
         NSLayoutConstraint.activate([
@@ -104,8 +99,15 @@ final class DescriptionViewController: UIViewController {
         editCalendarView.removeFromSuperview()
         completion()
     }
+    
+    private func observeCalendar() {
+        $newDeadline.sink { date in
+            self.deadlineTextField.text = date?.toString() ?? ""
+        }.store(in: &subscribers)
+    }
 }
 
+//MARK: - Data from ongoing/done table view cells
 extension DescriptionViewController: SendOngoingTaskDataToDescription {
     
     func didSendData(from task: Task) {
@@ -129,6 +131,7 @@ extension DescriptionViewController: SendDoneTaskDataToDescription {
     }
 }
 
+//MARK: - EditCalendarView Delegate
 extension DescriptionViewController: EditCalendarViewDelegate {
     
     func editCalendarViewDidSelectDate(date: Date) {
@@ -139,10 +142,13 @@ extension DescriptionViewController: EditCalendarViewDelegate {
     }
 }
 
+//MARK: - Views settings
 extension DescriptionViewController {
     
-    //MARK: - Views settings
     private func setupViews() {
+        editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        saveChangesButton.addTarget(self, action: #selector(SaveChangesButtonTapped), for: .touchUpInside)
+        changeDateCalendarButton.addTarget(self, action: #selector(editCalendarButtonTapped), for: .touchUpInside)
         changeDateCalendarButton.isHidden = true
         saveChangesButton.isHidden = true
         view.backgroundColor = .appBackground
