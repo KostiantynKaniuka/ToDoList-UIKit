@@ -57,7 +57,6 @@ final class DescriptionViewController: UIViewController {
         changeDateCalendarButton.addTarget(self, action: #selector(editCalendarButtonTapped), for: .touchUpInside)
         setupViews()
         layout()
-       // setupGestures()
         observeCalendar()
     }
     
@@ -105,16 +104,6 @@ final class DescriptionViewController: UIViewController {
         editCalendarView.removeFromSuperview()
         completion()
     }
-//
-////    private func setupGestures() {
-//        let tapGestures = UITapGestureRecognizer(target: self, action: #selector(dismissViewController))
-//        tapGestures.delegate = self
-//        view.addGestureRecognizer(tapGestures)
-//    }
-    
-    @objc private func dismissViewController() {
-        dismiss(animated: true)
-    }
 }
 
 extension DescriptionViewController: SendOngoingTaskDataToDescription {
@@ -141,21 +130,14 @@ extension DescriptionViewController: SendDoneTaskDataToDescription {
 }
 
 extension DescriptionViewController: EditCalendarViewDelegate {
+    
     func editCalendarViewDidSelectDate(date: Date) {
         dismissEditCalendarView { [unowned self] in
             self.newDeadline = date
+            realmManafer.newDeadline(id: taskId, deadline: date)
         }
     }
 }
-
-//extension DescriptionViewController: UIGestureRecognizerDelegate {
-//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-//        if editCalendarView.isDescendant(of: view) {
-//            return false
-//        }
-//        return true
-//    }
-//}
 
 extension DescriptionViewController {
     
@@ -227,4 +209,3 @@ extension DescriptionViewController {
         ])
     }
 }
-
