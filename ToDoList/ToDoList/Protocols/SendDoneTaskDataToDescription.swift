@@ -5,7 +5,7 @@
 //  Created by Kostiantyn Kaniuka on 29.11.2022.
 //
 
-import UIKit
+import Foundation
 
 protocol SendDoneTaskDataToDescription: AnyObject {
     func didSendDoneData(from task: Task)

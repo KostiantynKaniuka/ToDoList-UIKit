@@ -36,6 +36,8 @@
 		E7703FCC2934FCB500F951C1 /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7703FCB2934FCB500F951C1 /* Extension+Date.swift */; };
 		E778D5FB29365FE700CFB180 /* SaveChangesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E778D5FA29365FE700CFB180 /* SaveChangesButton.swift */; };
 		E778D5FD2936875D00CFB180 /* UpdateChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = E778D5FC2936875D00CFB180 /* UpdateChanges.swift */; };
+		E778D5FF2936AE8500CFB180 /* EditCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E778D5FE2936AE8500CFB180 /* EditCalendarView.swift */; };
+		E778D6012936AEEB00CFB180 /* EditCalendarViewDelegate .swift in Sources */ = {isa = PBXBuildFile; fileRef = E778D6002936AEEB00CFB180 /* EditCalendarViewDelegate .swift */; };
 		E7A86A83292D77E70071D5AD /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A86A82292D77E70071D5AD /* Task.swift */; };
 		E7A86A86292D7B540071D5AD /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = E7A86A85292D7B540071D5AD /* Realm */; };
 		E7A86A88292D7B540071D5AD /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E7A86A87292D7B540071D5AD /* RealmSwift */; };
@@ -80,6 +82,8 @@
 		E7703FCB2934FCB500F951C1 /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
 		E778D5FA29365FE700CFB180 /* SaveChangesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveChangesButton.swift; sourceTree = "<group>"; };
 		E778D5FC2936875D00CFB180 /* UpdateChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateChanges.swift; sourceTree = "<group>"; };
+		E778D5FE2936AE8500CFB180 /* EditCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCalendarView.swift; sourceTree = "<group>"; };
+		E778D6002936AEEB00CFB180 /* EditCalendarViewDelegate .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditCalendarViewDelegate .swift"; sourceTree = "<group>"; };
 		E7A86A82292D77E70071D5AD /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		E7A86A89292D7BB40071D5AD /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		E7AC5FA229313E4E004670BD /* OngoingTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingTaskTableViewCell.swift; sourceTree = "<group>"; };
@@ -153,6 +157,7 @@
 				E734AC9C29358C4600D551DF /* EditButton.swift */,
 				E734AC9E29358D5C00D551DF /* DeleteButton.swift */,
 				E778D5FA29365FE700CFB180 /* SaveChangesButton.swift */,
+				E778D5FE2936AE8500CFB180 /* EditCalendarView.swift */,
 			);
 			path = DescpritionScreen;
 			sourceTree = "<group>";
@@ -228,6 +233,7 @@
 				E734AC9629357ED700D551DF /* SendOngoingTaskDataToDescription.swift */,
 				E734AC9829357F8400D551DF /* SendDoneTaskDataToDescription.swift */,
 				E778D5FC2936875D00CFB180 /* UpdateChanges.swift */,
+				E778D6002936AEEB00CFB180 /* EditCalendarViewDelegate .swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -405,7 +411,9 @@
 				E734AC9F29358D5C00D551DF /* DeleteButton.swift in Sources */,
 				E778D5FD2936875D00CFB180 /* UpdateChanges.swift in Sources */,
 				E765370A292C0037005FD271 /* SegmentSection.swift in Sources */,
+				E778D5FF2936AE8500CFB180 /* EditCalendarView.swift in Sources */,
 				E7F6C905292BE2CA00E6A20B /* MainViewController.swift in Sources */,
+				E778D6012936AEEB00CFB180 /* EditCalendarViewDelegate .swift in Sources */,
 				E765370F292C170D005FD271 /* DoneTaskTableViewController.swift in Sources */,
 				E76B2CBC2933EA8A0002B4AA /* DescriptionViewController.swift in Sources */,
 				E7A86A8A292D7BB40071D5AD /* RealmManager.swift in Sources */,

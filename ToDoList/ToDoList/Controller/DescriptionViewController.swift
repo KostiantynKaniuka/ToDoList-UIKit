@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import Combine
 
 final class DescriptionViewController: UIViewController {
     //MARK: - Outlets
@@ -35,7 +36,16 @@ final class DescriptionViewController: UIViewController {
     //MARK: - Properties
     private let realmManafer = RealmManager()
     private var taskId = ObjectId()
+    @Published private var newDeadline:Date?
+    private var subscribers = Set<AnyCancellable>()
     static weak var delegate: UpdateChanges?
+    
+    private lazy var editCalendarView: EditCalendarView = {
+        let calendarview = EditCalendarView()
+        calendarview.delegate = self
+        calendarview.translatesAutoresizingMaskIntoConstraints = false
+        return calendarview
+    }()
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -44,11 +54,20 @@ final class DescriptionViewController: UIViewController {
         DoneTaskTableViewController.delegate = self
         editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         saveChangesButton.addTarget(self, action: #selector(SaveChangesButtonTapped), for: .touchUpInside)
+        changeDateCalendarButton.addTarget(self, action: #selector(editCalendarButtonTapped), for: .touchUpInside)
         setupViews()
         layout()
+       // setupGestures()
+        observeCalendar()
     }
     
     //MARK: - Methods
+    private func observeCalendar() {
+        $newDeadline.sink { date in
+            self.deadlineTextField.text = date?.toString() ?? ""
+        }.store(in: &subscribers)
+    }
+    
     @objc private func SaveChangesButtonTapped(_sender: UIButton) {
         let taskName = taskNameTextField.text ?? ""
         let shortDescription = shortDescriptionTextField.text ?? ""
@@ -66,6 +85,35 @@ final class DescriptionViewController: UIViewController {
         taskNameTextField.isEnabled = true
         shortDescriptionTextField.isEnabled = true
         taskNameTextField.becomeFirstResponder()
+    }
+    
+    @objc private func editCalendarButtonTapped(_sender: Any) {
+        taskNameTextField.resignFirstResponder()
+        showEditCalendar()
+    }
+    
+    private func showEditCalendar() {
+        view.addSubview(editCalendarView)
+        NSLayoutConstraint.activate([
+            editCalendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            editCalendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            editCalendarView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+    }
+    
+    private func dismissEditCalendarView (completion: () -> Void) {
+        editCalendarView.removeFromSuperview()
+        completion()
+    }
+//
+////    private func setupGestures() {
+//        let tapGestures = UITapGestureRecognizer(target: self, action: #selector(dismissViewController))
+//        tapGestures.delegate = self
+//        view.addGestureRecognizer(tapGestures)
+//    }
+    
+    @objc private func dismissViewController() {
+        dismiss(animated: true)
     }
 }
 
@@ -92,8 +140,26 @@ extension DescriptionViewController: SendDoneTaskDataToDescription {
     }
 }
 
+extension DescriptionViewController: EditCalendarViewDelegate {
+    func editCalendarViewDidSelectDate(date: Date) {
+        dismissEditCalendarView { [unowned self] in
+            self.newDeadline = date
+        }
+    }
+}
+
+//extension DescriptionViewController: UIGestureRecognizerDelegate {
+//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+//        if editCalendarView.isDescendant(of: view) {
+//            return false
+//        }
+//        return true
+//    }
+//}
+
 extension DescriptionViewController {
     
+    //MARK: - Views settings
     private func setupViews() {
         changeDateCalendarButton.isHidden = true
         saveChangesButton.isHidden = true
@@ -108,6 +174,7 @@ extension DescriptionViewController {
         completedDateLabel.text = "Completed Date"
     }
     
+    //MARK: - Layout
     private func layout() {
         dummyView.translatesAutoresizingMaskIntoConstraints = false
         actionButtonsStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -160,3 +227,4 @@ extension DescriptionViewController {
         ])
     }
 }
+
