@@ -22,6 +22,6 @@ final class HorizontalStackView: UIStackView {
         self.axis = .horizontal
         self.distribution = .fill
         self.alignment = .fill
-        self.spacing = 10
+        self.spacing = 25
     }
 }

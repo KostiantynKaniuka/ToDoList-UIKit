@@ -85,10 +85,10 @@ class CalendarView: UIView {
         }
     }
 }
+
+extension CalendarView: FSCalendarDelegate {
     
-    extension CalendarView: FSCalendarDelegate {
-        
-        func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-            delegate?.calendarViewDidSelectDate(date: date)
-        }
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        delegate?.calendarViewDidSelectDate(date: date)
     }
+}

@@ -22,6 +22,9 @@
 		E734AC952935775A00D551DF /* NameLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E734AC942935775A00D551DF /* NameLabel.swift */; };
 		E734AC9729357ED700D551DF /* SendOngoingTaskDataToDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = E734AC9629357ED700D551DF /* SendOngoingTaskDataToDescription.swift */; };
 		E734AC9929357F8400D551DF /* SendDoneTaskDataToDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = E734AC9829357F8400D551DF /* SendDoneTaskDataToDescription.swift */; };
+		E734AC9B293582B100D551DF /* DoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E734AC9A293582B100D551DF /* DoneButton.swift */; };
+		E734AC9D29358C4600D551DF /* EditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E734AC9C29358C4600D551DF /* EditButton.swift */; };
+		E734AC9F29358D5C00D551DF /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E734AC9E29358D5C00D551DF /* DeleteButton.swift */; };
 		E7653703292BF6E7005FD271 /* StyleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7653702292BF6E7005FD271 /* StyleExtension.swift */; };
 		E765370A292C0037005FD271 /* SegmentSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7653709292C0037005FD271 /* SegmentSection.swift */; };
 		E765370D292C06AB005FD271 /* OngoingTaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E765370C292C06AB005FD271 /* OngoingTaskTableViewController.swift */; };
@@ -61,6 +64,9 @@
 		E734AC942935775A00D551DF /* NameLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameLabel.swift; sourceTree = "<group>"; };
 		E734AC9629357ED700D551DF /* SendOngoingTaskDataToDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendOngoingTaskDataToDescription.swift; sourceTree = "<group>"; };
 		E734AC9829357F8400D551DF /* SendDoneTaskDataToDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendDoneTaskDataToDescription.swift; sourceTree = "<group>"; };
+		E734AC9A293582B100D551DF /* DoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButton.swift; sourceTree = "<group>"; };
+		E734AC9C29358C4600D551DF /* EditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditButton.swift; sourceTree = "<group>"; };
+		E734AC9E29358D5C00D551DF /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
 		E7653702292BF6E7005FD271 /* StyleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleExtension.swift; sourceTree = "<group>"; };
 		E7653709292C0037005FD271 /* SegmentSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentSection.swift; sourceTree = "<group>"; };
 		E765370C292C06AB005FD271 /* OngoingTaskTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingTaskTableViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +145,9 @@
 			children = (
 				E734AC90293557B700D551DF /* DescriptionViewTextField.swift */,
 				E734AC942935775A00D551DF /* NameLabel.swift */,
+				E734AC9A293582B100D551DF /* DoneButton.swift */,
+				E734AC9C29358C4600D551DF /* EditButton.swift */,
+				E734AC9E29358D5C00D551DF /* DeleteButton.swift */,
 			);
 			path = DescpritionScreen;
 			sourceTree = "<group>";
@@ -387,11 +396,13 @@
 				E72D0B26293413D400357ED0 /* CalendarView.swift in Sources */,
 				E765370D292C06AB005FD271 /* OngoingTaskTableViewController.swift in Sources */,
 				E7703FCC2934FCB500F951C1 /* Extension+Date.swift in Sources */,
+				E734AC9F29358D5C00D551DF /* DeleteButton.swift in Sources */,
 				E765370A292C0037005FD271 /* SegmentSection.swift in Sources */,
 				E7F6C905292BE2CA00E6A20B /* MainViewController.swift in Sources */,
 				E765370F292C170D005FD271 /* DoneTaskTableViewController.swift in Sources */,
 				E76B2CBC2933EA8A0002B4AA /* DescriptionViewController.swift in Sources */,
 				E7A86A8A292D7BB40071D5AD /* RealmManager.swift in Sources */,
+				E734AC9B293582B100D551DF /* DoneButton.swift in Sources */,
 				E71C91F8292E7C6200443A43 /* SaveTaskButton.swift in Sources */,
 				E7AC5FA329313E4E004670BD /* OngoingTaskTableViewCell.swift in Sources */,
 				E7653703292BF6E7005FD271 /* StyleExtension.swift in Sources */,
@@ -404,6 +415,7 @@
 				E7AC5FA7293157D8004670BD /* MainViewControllerDelegate.swift in Sources */,
 				E734AC9729357ED700D551DF /* SendOngoingTaskDataToDescription.swift in Sources */,
 				E71C91FE292E902900443A43 /* HorizontalStackView.swift in Sources */,
+				E734AC9D29358C4600D551DF /* EditButton.swift in Sources */,
 				E71C91F3292E741100443A43 /* TaskTextField.swift in Sources */,
 				E7703FCA2934F94A00F951C1 /* CalendarViewDelegate.swift in Sources */,
 				E76B2CBA2933CE8F0002B4AA /* DoneTaskTableViewControllerDelegate.swift in Sources */,
