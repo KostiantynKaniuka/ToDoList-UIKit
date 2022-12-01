@@ -53,6 +53,8 @@ final class DescriptionViewController: UIViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        taskNameTextField.delegate = self
+        shortDescriptionTextField.delegate = self
         OngoingTaskTableViewController.delegate = self
         DoneTaskTableViewController.delegate = self
         OngoingTaskTableViewController.editDelegate = self
@@ -69,7 +71,7 @@ final class DescriptionViewController: UIViewController {
         let taskName = taskNameTextField.text ?? ""
         let shortDescription = shortDescriptionTextField.text ?? ""
         realmManager.applyChanges(id: taskId, taskName: taskName, shortDescription: shortDescription)
-        notificationManager.setupNotifications(id: currentTask?.title ?? "", deadline: Date().addingTimeInterval(5))
+        notificationManager.setupNotifications(id: currentTask?.title ?? "", deadline: newDeadline?.addingTimeInterval(5))
         DescriptionViewController.delegate?.refreshTableView()
         
         taskNameTextField.isEnabled = false
@@ -166,7 +168,7 @@ extension DescriptionViewController: EditCalendarViewDelegate {
         dismissEditCalendarView { [ unowned self ] in
             self.newDeadline = date
             realmManager.newDeadline(id: taskId, deadline: date)
-            notificationManager.setupNotifications(id: currentTask?.title ?? "", deadline: Date().addingTimeInterval(5))
+            notificationManager.setupNotifications(id: currentTask?.title ?? "", deadline: date.addingTimeInterval(5))
         }
     }
 }
@@ -244,5 +246,15 @@ extension DescriptionViewController {
             changeDateCalendarButton.widthAnchor.constraint(equalToConstant: 100),
             changeDateCalendarButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+}
+
+extension DescriptionViewController: UITextFieldDelegate {
+    //Dismiss keyboard when press return
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        textField.isSelected = false
+        
+        return true
     }
 }

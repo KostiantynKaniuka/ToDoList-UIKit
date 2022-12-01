@@ -73,7 +73,7 @@ extension ToDoListViewController: MainViewControllerDelegate {
         presentedViewController?.dismiss(animated: true, completion: { [unowned self] in
             self.realm.addTask(title: task.title, deadlineDate: task.deadlineDate, shortDescription: task.shortDescription)
             ongoingTaskViewController.readTaskAndUpdateUi()
-            notificationManager.setupNotifications(id: task.title, deadline: task.dateOfAdding.addingTimeInterval(5))
+            notificationManager.setupNotifications(id: task.title, deadline: task.deadlineDate?.addingTimeInterval(5))
         })
     }
 }

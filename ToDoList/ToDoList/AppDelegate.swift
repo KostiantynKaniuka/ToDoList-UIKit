@@ -6,13 +6,10 @@
 //
 
 import UIKit
-import RealmSwift
 import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    var taskId: ObjectId?
-    let realmManager = RealmManager()
     
     var window: UIWindow?
     
@@ -30,25 +27,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Denied")
             }
         }
-        //print(Realm.Configuration.defaultConfiguration.fileURL!)
+       
         return true
     }
 }
 
-extension AppDelegate: UNUserNotificationCenterDelegate, SendOngoingTaskDataToDescription {
-    func didSendData(from task: Task) {
-        taskId = task._id
-        
-    }
-    
+extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.banner, .sound])
     }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        let currentTask = realmManager.localRealm?.objects(Task.self).filter("completed = false")
-        
-    }
-    
 }
