@@ -48,7 +48,7 @@
 		E7AC5FA329313E4E004670BD /* OngoingTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AC5FA229313E4E004670BD /* OngoingTaskTableViewCell.swift */; };
 		E7AC5FA7293157D8004670BD /* MainViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AC5FA6293157D8004670BD /* MainViewControllerDelegate.swift */; };
 		E7F6C901292BE2CA00E6A20B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F6C900292BE2CA00E6A20B /* AppDelegate.swift */; };
-		E7F6C905292BE2CA00E6A20B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F6C904292BE2CA00E6A20B /* MainViewController.swift */; };
+		E7F6C905292BE2CA00E6A20B /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F6C904292BE2CA00E6A20B /* ToDoListViewController.swift */; };
 		E7F6C90A292BE2CB00E6A20B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7F6C909292BE2CB00E6A20B /* Assets.xcassets */; };
 		E7F6C90D292BE2CB00E6A20B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7F6C90B292BE2CB00E6A20B /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -96,7 +96,7 @@
 		E7AC5FA6293157D8004670BD /* MainViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerDelegate.swift; sourceTree = "<group>"; };
 		E7F6C8FD292BE2CA00E6A20B /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7F6C900292BE2CA00E6A20B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E7F6C904292BE2CA00E6A20B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		E7F6C904292BE2CA00E6A20B /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
 		E7F6C909292BE2CB00E6A20B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E7F6C90C292BE2CB00E6A20B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E7F6C90E292BE2CB00E6A20B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -226,7 +226,7 @@
 		E765370B292C0688005FD271 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				E7F6C904292BE2CA00E6A20B /* MainViewController.swift */,
+				E7F6C904292BE2CA00E6A20B /* ToDoListViewController.swift */,
 				E7653710292C2B5A005FD271 /* NewTaskViewController.swift */,
 				E7AC5FA429314264004670BD /* OngoingTaskViewController */,
 				E72B812329339E7B00F5DC3C /* DoneTaskViewController */,
@@ -437,7 +437,7 @@
 				E778D5FD2936875D00CFB180 /* UpdateChanges.swift in Sources */,
 				E765370A292C0037005FD271 /* SegmentSection.swift in Sources */,
 				E778D5FF2936AE8500CFB180 /* EditCalendarView.swift in Sources */,
-				E7F6C905292BE2CA00E6A20B /* MainViewController.swift in Sources */,
+				E7F6C905292BE2CA00E6A20B /* ToDoListViewController.swift in Sources */,
 				E778D6012936AEEB00CFB180 /* EditCalendarViewDelegate .swift in Sources */,
 				E72BDFE829377CEE001C9AFE /* StackView.swift in Sources */,
 				E765370F292C170D005FD271 /* DoneTaskTableViewController.swift in Sources */,

@@ -38,6 +38,7 @@ final class DescriptionViewController: UIViewController {
     private let realmManager = RealmManager()
     private var taskId = ObjectId()
     //React to calendar
+    private let notificationManager = NotificationManager()
     @Published private var newDeadline:Date?
     private var subscribers = Set<AnyCancellable>()
     //delegate
@@ -63,10 +64,14 @@ final class DescriptionViewController: UIViewController {
     
     //MARK: - Actions
     @objc private func SaveChangesButtonTapped(_sender: UIButton) {
+        let currentTask = realmManager.localRealm?.object(ofType: Task.self, forPrimaryKey: taskId)
+        notificationManager.removeNotifications(withIdentifiers: [currentTask?.title ?? ""])
         let taskName = taskNameTextField.text ?? ""
         let shortDescription = shortDescriptionTextField.text ?? ""
         realmManager.applyChanges(id: taskId, taskName: taskName, shortDescription: shortDescription)
+        notificationManager.setupNotifications(id: currentTask?.title ?? "", deadline: Date().addingTimeInterval(5))
         DescriptionViewController.delegate?.refreshTableView()
+        
         taskNameTextField.isEnabled = false
         shortDescriptionTextField.isEnabled = false
         saveChangesButton.isHidden = true
@@ -156,9 +161,12 @@ extension DescriptionViewController: SendDoneTaskDataToDescription {
 extension DescriptionViewController: EditCalendarViewDelegate {
     
     func editCalendarViewDidSelectDate(date: Date) {
-        dismissEditCalendarView { [unowned self] in
+        let currentTask = realmManager.localRealm?.object(ofType: Task.self, forPrimaryKey: taskId)
+        notificationManager.removeNotifications(withIdentifiers: [currentTask?.title ?? ""])
+        dismissEditCalendarView { [ unowned self ] in
             self.newDeadline = date
             realmManager.newDeadline(id: taskId, deadline: date)
+            notificationManager.setupNotifications(id: currentTask?.title ?? "", deadline: Date().addingTimeInterval(5))
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ToDoListViewController.swift
 //  ToDoList
 //
 //  Created by Kostiantyn Kaniuka on 21.11.2022.
@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 import UserNotifications
 
-final class MainViewController: UIViewController {
+final class ToDoListViewController: UIViewController {
     //MARK: - Outlets
     private let segmentControll = SegmentControll(frame: .null)
     private let ongoingTaskViewController = OngoingTaskTableViewController()
@@ -66,7 +66,7 @@ final class MainViewController: UIViewController {
 }
 
 //MARK: - Delegates
-extension MainViewController: MainViewControllerDelegate {
+extension ToDoListViewController: MainViewControllerDelegate {
     
     //Actions after add task button tapped
     func didAddTask(_ task: Task) {
@@ -79,7 +79,7 @@ extension MainViewController: MainViewControllerDelegate {
 }
 
 //Refresh tableviews to show changes after adding/deleting new task
-extension MainViewController: UpdateChanges {
+extension ToDoListViewController: UpdateChanges {
     func refreshTableView() {
         ongoingTaskViewController.tableView.reloadData()
         doneTaskViewController.tableView.reloadData()
@@ -87,7 +87,7 @@ extension MainViewController: UpdateChanges {
 }
 
 //MARK: - Layout
-extension MainViewController {
+extension ToDoListViewController {
     
     private func style() {
         view.backgroundColor = .appBackground
