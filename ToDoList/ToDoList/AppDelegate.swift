@@ -11,10 +11,8 @@ import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
     var window: UIWindow?
-  
-    //let notificationCenter = UNUserNotificationCenter.current()
-   
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         let center = UNUserNotificationCenter.current()
@@ -30,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Denied")
             }
         }
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
+        //print(Realm.Configuration.defaultConfiguration.fileURL!)
         return true
     }
 }
@@ -40,4 +38,3 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         completionHandler([.banner, .sound])
     }
 }
-

@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class RealmManager: ObservableObject {    
+final class RealmManager: ObservableObject {
     private(set) var localRealm: Realm?
     @Published private(set) var tasks: [Task] = []
     
@@ -27,6 +27,17 @@ class RealmManager: ObservableObject {
         }
     }
     
+    func getTasks() {
+        if let localRealm = localRealm {
+            let allTasks = localRealm.objects(Task.self).sorted(byKeyPath: "completed")
+            tasks = []
+            allTasks.forEach{ task in
+                tasks.append(task)
+            }
+        }
+    }
+    
+    //MARK: - Add task  to database
     func addTask(title: String, deadlineDate: Date?, shortDescription: String?) {
         if let localRealm = localRealm {
             do {
@@ -42,16 +53,7 @@ class RealmManager: ObservableObject {
         }
     }
     
-    func getTasks() {
-        if let localRealm = localRealm {
-            let allTasks = localRealm.objects(Task.self).sorted(byKeyPath: "completed")
-            tasks = []
-            allTasks.forEach{ task in
-                tasks.append(task)
-            }
-        }
-    }
-    
+    //MARK: - Update task from ongoing to done
     func updateTask(id: ObjectId, completed: Bool, date: Date?) {
         if let localRealm = localRealm {
             do {
@@ -69,6 +71,7 @@ class RealmManager: ObservableObject {
         }
     }
     
+    //MARK: - Edit description logic
     func applyChanges(id: ObjectId, taskName: String, shortDescription: String?) {
         if let localRealm = localRealm {
             do {
@@ -86,6 +89,7 @@ class RealmManager: ObservableObject {
         }
     }
     
+    //MARK: - Change Deadline
     func newDeadline(id: ObjectId, deadline: Date?) {
         if let localRealm = localRealm {
             do {
@@ -102,6 +106,7 @@ class RealmManager: ObservableObject {
         }
     }
     
+    //MARK: - Delete
     func deleteTask(id: ObjectId) {
         if let localRealm = localRealm {
             do {

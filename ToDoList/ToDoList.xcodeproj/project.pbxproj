@@ -202,6 +202,7 @@
 		E7653705292BFDFE005FD271 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E77C008D2931783D00807FB5 /* Extension */,
 				E734AC8F2935576F00D551DF /* DescpritionScreen */,
 				E71C91FF292E942A00443A43 /* MainScreen */,
 				E71C91F4292E7B0100443A43 /* NewTaskScreen */,
@@ -286,7 +287,6 @@
 			children = (
 				E7F6C900292BE2CA00E6A20B /* AppDelegate.swift */,
 				E7AC5FA529315793004670BD /* Protocols */,
-				E77C008D2931783D00807FB5 /* Extension */,
 				E765370B292C0688005FD271 /* Controller */,
 				E7653708292C0007005FD271 /* Model */,
 				E7653705292BFDFE005FD271 /* View */,
