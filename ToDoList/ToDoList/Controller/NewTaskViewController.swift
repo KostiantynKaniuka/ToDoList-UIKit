@@ -33,7 +33,7 @@ final class NewTaskViewController: UIViewController {
     @Published private var deadline: Date?
     static weak var delegate: MainViewControllerDelegate?
     
-    //MARK: - Life cycle
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         observeForm()
@@ -55,7 +55,7 @@ final class NewTaskViewController: UIViewController {
     private func observeForm() {
         NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification).map { (notification) -> String? in
             return (notification.object as? UITextField)?.text
-        }.sink { [unowned self](text) in
+        }.sink { [ unowned self ](text) in
             self.taskString = text
         }.store(in: &subscribers)
         $taskString.sink { (text) in
@@ -67,6 +67,7 @@ final class NewTaskViewController: UIViewController {
         }.store(in: &subscribers)
     }
     
+    //Dismiss screen if tap at any poin except action elements
     private func setupGestures() {
         let tapGestures = UITapGestureRecognizer(target: self, action: #selector(dismissViewController))
         tapGestures.delegate = self
@@ -136,7 +137,7 @@ extension NewTaskViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if calendarView.isDescendant(of: view) {
             if touch.view?.isDescendant(of: calendarView) == false {
-                dismissCalendarView { [unowned self] in
+                dismissCalendarView { [ unowned self ] in
                     self.taskTextField.becomeFirstResponder()
                 }
             }
@@ -150,22 +151,23 @@ extension NewTaskViewController: UIGestureRecognizerDelegate {
 extension NewTaskViewController: CalendarViewDelegate {
     
     func calendarViewDidSelectDate(date: Date) {
-        dismissCalendarView { [unowned self] in
+        dismissCalendarView { [ unowned self ] in
             self.taskTextField.becomeFirstResponder()
             self.deadline = date
         }
     }
     
     func calendarViewDidTapRemoveButton() {
-        dismissCalendarView { [unowned self] in
+        dismissCalendarView { [ unowned self ] in
             self.taskTextField.becomeFirstResponder()
             self.deadline = nil
         }
     }
 }
 
+//MARK: - Layout
 extension NewTaskViewController {
-    //MARK: - Views configuration
+   
     private func style() {
         backgroundView.backgroundColor = .AddNewTaskScreenColor
         bottomView.backgroundColor = .white
@@ -174,20 +176,21 @@ extension NewTaskViewController {
         deadlineLabel.textAlignment = .center
     }
     
-    //MARK: - Layout
     private func layout() {
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         bottomView.translatesAutoresizingMaskIntoConstraints = false
         verticalStackView.translatesAutoresizingMaskIntoConstraints = false
         //addViews
-        view.addSubview(backgroundView)
-        view.addSubview(bottomView)
-        view.addSubview(verticalStackView)
-        horizontalStackView.addArrangedSubview(saveTaskButton)
-        horizontalStackView.addArrangedSubview(deadlineLabel)
-        horizontalStackView.addArrangedSubview(calendarButton)
-        verticalStackView.addArrangedSubview(taskTextField)
-        verticalStackView.addArrangedSubview(horizontalStackView)
+        view.add(subviews: backgroundView, bottomView, verticalStackView)
+        horizontalStackView.addArrangedSubviews([
+            saveTaskButton,
+            deadlineLabel,
+            calendarButton
+        ])
+        verticalStackView.addArrangedSubviews([
+            taskTextField,
+            horizontalStackView
+        ])
         //Constraints
         NSLayoutConstraint.activate([
             backgroundView.topAnchor.constraint(equalTo: view.topAnchor),

@@ -163,7 +163,7 @@ extension DescriptionViewController: EditCalendarViewDelegate {
     }
 }
 
-//MARK: - Views settings
+//MARK: - Layout
 extension DescriptionViewController {
     
     private func setupViews() {
@@ -185,35 +185,36 @@ extension DescriptionViewController {
         completedDateLabel.text = "Completed Date"
     }
     
-    //MARK: - Layout
     private func layout() {
         actionButtonsStackView.translatesAutoresizingMaskIntoConstraints = false
         verticalStackView.translatesAutoresizingMaskIntoConstraints = false
         saveChangesButton.translatesAutoresizingMaskIntoConstraints = false
         changeDateCalendarButton.translatesAutoresizingMaskIntoConstraints = false
         calendarLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        actionButtonsStackView.addArrangedSubviews([doneButton,
-                                                    editButton,
-                                                    deleteButton])
-        
-        verticalStackView.addArrangedSubviews([taskNameLabel,
-                                               taskNameTextField,
-                                               shortDescriptionLabel,
-                                               shortDescriptionTextField,
-                                               dateOfAddingLabel,
-                                               dateOfAddingTextField,
-                                               deadlineLabel,
-                                               deadlineTextField,
-                                               completedDateLabel,
-                                               completedDateTextField])
-        
+        //Adding Views
+        actionButtonsStackView.addArrangedSubviews([
+            doneButton,
+            editButton,
+            deleteButton
+        ])
+        verticalStackView.addArrangedSubviews([
+            taskNameLabel,
+            taskNameTextField,
+            shortDescriptionLabel,
+            shortDescriptionTextField,
+            dateOfAddingLabel,
+            dateOfAddingTextField,
+            deadlineLabel,
+            deadlineTextField,
+            completedDateLabel,
+            completedDateTextField
+        ])
         view.add(subviews: verticalStackView,
                  actionButtonsStackView,
                  saveChangesButton,
                  changeDateCalendarButton,
                  calendarLabel)
-        
+        //Constraints
         NSLayoutConstraint.activate([
             verticalStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 8),
             verticalStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),

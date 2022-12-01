@@ -21,7 +21,7 @@ final class NotificationManager {
             let month = calendar.component(.month, from: deadline ?? Date())
             let content = UNMutableNotificationContent()
             content.title = "To Do"
-            content.subtitle = "🔥The deadline for: \(id) is today!"
+            content.subtitle = "🔥The Deadline for: \(id) is today!"
             content.sound = .default
             var operationDate = DateComponents()
             operationDate.hour = hour
