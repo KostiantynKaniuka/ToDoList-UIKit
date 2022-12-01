@@ -8,12 +8,14 @@
 import UIKit
 import RealmSwift
 
-class DoneTaskTableViewController: UITableViewController {
+final class DoneTaskTableViewController: UITableViewController {
+    //MARK: - Outlets
     private let realmManager = RealmManager()
     private var doneTasks: Results<Task>?
     static weak var delegate: SendDoneTaskDataToDescription?
     static weak var editDelegate: ActivateEditMode?
-   
+    
+    //MARK: - Lyfecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         OngoingTaskTableViewCell.delegate = self
@@ -22,12 +24,14 @@ class DoneTaskTableViewController: UITableViewController {
         readDoneTaskAndUpdateUi()
     }
     
-    func readDoneTaskAndUpdateUi() {
+    //MARK: - Methods
+    private func readDoneTaskAndUpdateUi() {
         doneTasks = realmManager.localRealm?.objects(Task.self).filter("completed = true").sorted(byKeyPath: "dateOfAdding", ascending: false)
         tableView.reloadData()
     }
 }
 
+//MARK: - TableView Data Source
 extension DoneTaskTableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -42,6 +46,7 @@ extension DoneTaskTableViewController {
         return  doneTasks?.count ?? 1
     }
     
+    //MARK: - TableView Delegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let task = doneTasks?[indexPath.row] ?? Task()
         self.present(DescriptionViewController(), animated: true) {
@@ -52,17 +57,6 @@ extension DoneTaskTableViewController {
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-    
-//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            let task = doneTasks?[indexPath.row] ?? Task()
-//            let id = task._id
-//            realmManager.deleteTask(id: id)
-//            tableView.beginUpdates()
-//            tableView.deleteRows(at: [indexPath], with: .automatic)
-//            tableView.endUpdates()
-//        }
-//    }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         //Edit
@@ -92,6 +86,7 @@ extension DoneTaskTableViewController {
 }
 
 extension DoneTaskTableViewController: DoneTaskTableViewControllerDelegate {
+    
     func didDoneButtonTapped() {
         readDoneTaskAndUpdateUi()
     }

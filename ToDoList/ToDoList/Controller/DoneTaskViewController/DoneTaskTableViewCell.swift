@@ -8,12 +8,14 @@
 import UIKit
 
 final class DoneTaskTableViewCell: UITableViewCell {
+    //MARK: - Outlets
     private let taskName = UILabel()
     private let tickButton = UIButton()
     static private let rowHeight: CGFloat = 150
     static let reuseID = "doneTaskCell"
     var doneButtonDidTap: (() -> Void)?
     
+    //MARK: - Methods
     func configure(with task: Task) {
         taskName.text = task.title
     }
@@ -35,6 +37,7 @@ final class DoneTaskTableViewCell: UITableViewCell {
     }
 }
 
+//MARK: - Layout
 extension DoneTaskTableViewCell {
     
     private func setup() {
@@ -56,10 +59,8 @@ extension DoneTaskTableViewCell {
     private func layout() {
         taskName.translatesAutoresizingMaskIntoConstraints = false
         tickButton.translatesAutoresizingMaskIntoConstraints = false
-        
         addSubview(tickButton)
         addSubview(taskName)
-        
         NSLayoutConstraint.activate([
             tickButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             tickButton.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 1),

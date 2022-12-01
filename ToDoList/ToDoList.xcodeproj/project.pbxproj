@@ -206,7 +206,6 @@
 				E734AC8F2935576F00D551DF /* DescpritionScreen */,
 				E71C91FF292E942A00443A43 /* MainScreen */,
 				E71C91F4292E7B0100443A43 /* NewTaskScreen */,
-				E7653702292BF6E7005FD271 /* StyleExtension.swift */,
 				E72D0B25293413D400357ED0 /* CalendarView.swift */,
 			);
 			path = View;
@@ -215,6 +214,7 @@
 		E7653708292C0007005FD271 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E7AC5FA529315793004670BD /* Protocols */,
 				E7A86A89292D7BB40071D5AD /* RealmManager.swift */,
 				E7653709292C0037005FD271 /* SegmentSection.swift */,
 				E7A86A82292D77E70071D5AD /* Task.swift */,
@@ -228,9 +228,9 @@
 			children = (
 				E7F6C904292BE2CA00E6A20B /* MainViewController.swift */,
 				E7653710292C2B5A005FD271 /* NewTaskViewController.swift */,
-				E76B2CBB2933EA8A0002B4AA /* DescriptionViewController.swift */,
 				E7AC5FA429314264004670BD /* OngoingTaskViewController */,
 				E72B812329339E7B00F5DC3C /* DoneTaskViewController */,
+				E76B2CBB2933EA8A0002B4AA /* DescriptionViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -240,6 +240,7 @@
 			children = (
 				E72BDFE5293779F4001C9AFE /* UIView.swift */,
 				E72BDFE729377CEE001C9AFE /* StackView.swift */,
+				E7653702292BF6E7005FD271 /* StyleExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -286,7 +287,6 @@
 			isa = PBXGroup;
 			children = (
 				E7F6C900292BE2CA00E6A20B /* AppDelegate.swift */,
-				E7AC5FA529315793004670BD /* Protocols */,
 				E765370B292C0688005FD271 /* Controller */,
 				E7653708292C0007005FD271 /* Model */,
 				E7653705292BFDFE005FD271 /* View */,

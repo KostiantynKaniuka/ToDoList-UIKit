@@ -13,18 +13,16 @@ final class OngoingTaskTableViewCell: UITableViewCell {
     static private let rowHeight: CGFloat = 150
     static let reuseID = "ongoingTaskCell"
     static weak var delegate: DoneTaskTableViewControllerDelegate?
-    
     var doneButtonDidTap: (() -> Void)?
     
-    func configure(with task: Task) {
+     func configure(with task: Task) {
         taskName.text = task.title
     }
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
         layout()
-        doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -37,9 +35,11 @@ final class OngoingTaskTableViewCell: UITableViewCell {
     }
 }
 
+//MARK: - Layout
 extension OngoingTaskTableViewCell {
     
     private func setup() {
+        doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
         self.contentView.backgroundColor = .appBackground
         //Button
         let imageConfiguration = UIImage.SymbolConfiguration(hierarchicalColor: .systemBlue)

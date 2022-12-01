@@ -9,12 +9,14 @@ import UIKit
 import RealmSwift
 
 final class OngoingTaskTableViewController: UITableViewController {
+    //MARK: - Properties
     private let realmManager = RealmManager()
     private var newTasks: Results<Task>?
     static weak var delegate: SendOngoingTaskDataToDescription?
     static weak var editDelegate: ActivateEditMode?
     let notificationManager = NotificationManager()
     
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.backgroundColor = .appBackground
@@ -26,6 +28,7 @@ final class OngoingTaskTableViewController: UITableViewController {
         readTaskAndUpdateUi()
     }
     
+    //MARK: - Methods
     func readTaskAndUpdateUi() {
         newTasks = realmManager.localRealm?.objects(Task.self).filter("completed = false").sorted(byKeyPath: "dateOfAdding", ascending: false)
         tableView.reloadData()
@@ -38,6 +41,7 @@ final class OngoingTaskTableViewController: UITableViewController {
     }
 }
 
+//MARK: - TableView Data Source
 extension OngoingTaskTableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -51,6 +55,7 @@ extension OngoingTaskTableViewController {
         return cell
     }
     
+    //MARK: - TableView Delegate
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return newTasks?.count ?? 1
     }
@@ -66,6 +71,7 @@ extension OngoingTaskTableViewController {
         return true
     }
     
+    //Spipable buttons
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         //Edit
         let editAction = UIContextualAction(style: .normal, title: "Edit", handler: { (action, view, success) in

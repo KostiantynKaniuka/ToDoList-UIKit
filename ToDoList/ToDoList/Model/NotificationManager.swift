@@ -38,9 +38,9 @@ final class NotificationManager {
             UNUserNotificationCenter.current().add(requst)
         }
     }
-        
-        func removeNotifications(withIdentifiers identifiers: [String]) {
-            let center = UNUserNotificationCenter.current()
-            center.removeAllPendingNotificationRequests()
-        }
+    
+    func removeNotifications(withIdentifiers identifiers: [String]) {
+        let center = UNUserNotificationCenter.current()
+        center.removeAllPendingNotificationRequests()
     }
+}

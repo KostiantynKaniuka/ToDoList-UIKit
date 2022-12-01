@@ -8,7 +8,7 @@
 import UIKit
 import FSCalendar
 
-class CalendarView: UIView {
+final class CalendarView: UIView {
     weak var delegate: CalendarViewDelegate?
     
     private lazy var calendar: FSCalendar = {
