@@ -63,7 +63,7 @@ final class NewTaskViewController: UIViewController {
         }.store(in: &subscribers)
         //observe dealline
         $deadline.sink { date in
-            self.deadlineLabel.text = date?.toString() ?? ""
+            self.deadlineLabel.text = date?.formatted() ?? ""
         }.store(in: &subscribers)
     }
     

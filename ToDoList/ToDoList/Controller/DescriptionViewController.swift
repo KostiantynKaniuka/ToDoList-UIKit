@@ -116,7 +116,7 @@ final class DescriptionViewController: UIViewController {
     
     private func observeCalendar() {
         $newDeadline.sink { date in
-            self.deadlineTextField.text = date?.toString() ?? ""
+            self.deadlineTextField.text = date?.formatted() ?? ""
         }.store(in: &subscribers)
     }
 }

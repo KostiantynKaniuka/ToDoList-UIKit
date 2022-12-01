@@ -89,6 +89,7 @@ class CalendarView: UIView {
 extension CalendarView: FSCalendarDelegate {
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        delegate?.calendarViewDidSelectDate(date: date)
+        let newDate = date.addingTimeInterval(86400)
+        delegate?.calendarViewDidSelectDate(date: newDate)
     }
 }

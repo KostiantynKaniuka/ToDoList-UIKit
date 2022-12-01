@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Denied")
             }
         }
-        
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
         return true
     }
 }
