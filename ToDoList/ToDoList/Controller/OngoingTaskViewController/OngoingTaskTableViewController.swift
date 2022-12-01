@@ -11,8 +11,8 @@ import RealmSwift
 final class OngoingTaskTableViewController: UITableViewController {
     private let realmManager = RealmManager()
     private var newTasks: Results<Task>?
-    
     static weak var delegate: SendOngoingTaskDataToDescription?
+    static weak var editDelegate: ActivateEditMode?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,9 +71,10 @@ extension OngoingTaskTableViewController {
             let task = self.newTasks?[indexPath.row] ?? Task()
             self.present(DescriptionViewController(), animated: true) {
                 OngoingTaskTableViewController.delegate?.didSendData(from: task)
+                OngoingTaskTableViewController.editDelegate?.editButtonDidPressed()
             }
         })
-        //Edit
+        //Delete
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete", handler: { (action, view, success) in
             let task = self.newTasks?[indexPath.row] ?? Task()
             let id = task._id

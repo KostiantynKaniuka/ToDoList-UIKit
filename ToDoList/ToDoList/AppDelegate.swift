@@ -7,22 +7,37 @@
 
 import UIKit
 import RealmSwift
+import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
+  
+    //let notificationCenter = UNUserNotificationCenter.current()
+   
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self
         let navigationController = UINavigationController(rootViewController: MainViewController())
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.overrideUserInterfaceStyle = .light
         window?.backgroundColor = .appBackground
         window?.rootViewController = navigationController
-        
-        //print(Realm.Configuration.defaultConfiguration.fileURL!)
+        center.requestAuthorization(options: [.alert, .sound, .badge]) { granded, error in
+            if (!granded) {
+                print("Denied")
+            }
+        }
         
         return true
     }
 }
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .sound])
+    }
+}
+

@@ -11,7 +11,6 @@ import Combine
 
 final class DescriptionViewController: UIViewController {
     //MARK: - Outlets
-    private let dummyView = UIView()
     private let taskNameTextField = DescriptionTextField()
     private let dateOfAddingTextField = DescriptionTextField()
     private let shortDescriptionTextField = DescriptionTextField()
@@ -36,11 +35,12 @@ final class DescriptionViewController: UIViewController {
     
     //MARK: - Properties
     //DataBase
-    private let realmManafer = RealmManager()
+    private let realmManager = RealmManager()
     private var taskId = ObjectId()
     //React to calendar
     @Published private var newDeadline:Date?
     private var subscribers = Set<AnyCancellable>()
+    //delegate
     static weak var delegate: UpdateChanges?
     private lazy var editCalendarView: EditCalendarView = {
         let calendarview = EditCalendarView()
@@ -54,6 +54,8 @@ final class DescriptionViewController: UIViewController {
         super.viewDidLoad()
         OngoingTaskTableViewController.delegate = self
         DoneTaskTableViewController.delegate = self
+        OngoingTaskTableViewController.editDelegate = self
+        DoneTaskTableViewController.editDelegate = self
         setupViews()
         layout()
         observeCalendar()
@@ -63,14 +65,14 @@ final class DescriptionViewController: UIViewController {
     @objc private func SaveChangesButtonTapped(_sender: UIButton) {
         let taskName = taskNameTextField.text ?? ""
         let shortDescription = shortDescriptionTextField.text ?? ""
-        realmManafer.applyChanges(id: taskId, taskName: taskName, shortDescription: shortDescription)
+        realmManager.applyChanges(id: taskId, taskName: taskName, shortDescription: shortDescription)
         DescriptionViewController.delegate?.refreshTableView()
         taskNameTextField.isEnabled = false
         shortDescriptionTextField.isEnabled = false
         saveChangesButton.isHidden = true
         changeDateCalendarButton.isHidden = true
     }
-    
+        
     @objc private func editButtonTapped(_sender: UIButton) {
         saveChangesButton.isHidden = false
         changeDateCalendarButton.isHidden = false
@@ -82,6 +84,18 @@ final class DescriptionViewController: UIViewController {
     @objc private func editCalendarButtonTapped(_sender: Any) {
         taskNameTextField.resignFirstResponder()
         showEditCalendar()
+    }
+    
+    @objc private func finishButtonTapped(_sender: UIButton) {
+        realmManager.updateTask(id: taskId, completed: true, date: Date())
+        DescriptionViewController.delegate?.refreshTableView()
+        dismiss(animated: true)
+    }
+    
+    @objc private func deleteButtonTapped(_sender: UIButton) {
+        realmManager.deleteTask(id: taskId)
+        DescriptionViewController.delegate?.refreshTableView()
+        dismiss(animated: true)
     }
     
     //MARK: - Methods
@@ -119,6 +133,13 @@ extension DescriptionViewController: SendOngoingTaskDataToDescription {
     }
 }
 
+extension DescriptionViewController: ActivateEditMode {
+    
+    func editButtonDidPressed() {
+        editButton.sendActions(for: .touchUpInside)
+    }
+}
+
 extension DescriptionViewController: SendDoneTaskDataToDescription {
     
     func didSendDoneData(from task: Task) {
@@ -137,7 +158,7 @@ extension DescriptionViewController: EditCalendarViewDelegate {
     func editCalendarViewDidSelectDate(date: Date) {
         dismissEditCalendarView { [unowned self] in
             self.newDeadline = date
-            realmManafer.newDeadline(id: taskId, deadline: date)
+            realmManager.newDeadline(id: taskId, deadline: date)
         }
     }
 }
@@ -149,6 +170,8 @@ extension DescriptionViewController {
         editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         saveChangesButton.addTarget(self, action: #selector(SaveChangesButtonTapped), for: .touchUpInside)
         changeDateCalendarButton.addTarget(self, action: #selector(editCalendarButtonTapped), for: .touchUpInside)
+        doneButton.addTarget(self, action: #selector(finishButtonTapped), for: .touchUpInside)
+        deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         changeDateCalendarButton.isHidden = true
         saveChangesButton.isHidden = true
         view.backgroundColor = .appBackground
@@ -164,33 +187,32 @@ extension DescriptionViewController {
     
     //MARK: - Layout
     private func layout() {
-        dummyView.translatesAutoresizingMaskIntoConstraints = false
         actionButtonsStackView.translatesAutoresizingMaskIntoConstraints = false
         verticalStackView.translatesAutoresizingMaskIntoConstraints = false
         saveChangesButton.translatesAutoresizingMaskIntoConstraints = false
         changeDateCalendarButton.translatesAutoresizingMaskIntoConstraints = false
         calendarLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        actionButtonsStackView.addArrangedSubview(doneButton)
-        actionButtonsStackView.addArrangedSubview(editButton)
-        actionButtonsStackView.addArrangedSubview(deleteButton)
+        actionButtonsStackView.addArrangedSubviews([doneButton,
+                                                    editButton,
+                                                    deleteButton])
         
-        verticalStackView.addArrangedSubview(taskNameLabel)
-        verticalStackView.addArrangedSubview(taskNameTextField)
-        verticalStackView.addArrangedSubview(shortDescriptionLabel)
-        verticalStackView.addArrangedSubview(shortDescriptionTextField)
-        verticalStackView.addArrangedSubview(dateOfAddingLabel)
-        verticalStackView.addArrangedSubview(dateOfAddingTextField)
-        verticalStackView.addArrangedSubview(deadlineLabel)
-        verticalStackView.addArrangedSubview(deadlineTextField)
-        verticalStackView.addArrangedSubview(completedDateLabel)
-        verticalStackView.addArrangedSubview(completedDateTextField)
+        verticalStackView.addArrangedSubviews([taskNameLabel,
+                                               taskNameTextField,
+                                               shortDescriptionLabel,
+                                               shortDescriptionTextField,
+                                               dateOfAddingLabel,
+                                               dateOfAddingTextField,
+                                               deadlineLabel,
+                                               deadlineTextField,
+                                               completedDateLabel,
+                                               completedDateTextField])
         
-        view.addSubview(verticalStackView)
-        view.addSubview(actionButtonsStackView)
-        view.addSubview(saveChangesButton)
-        view.addSubview(changeDateCalendarButton)
-        view.addSubview(calendarLabel)
+        view.add(subviews: verticalStackView,
+                 actionButtonsStackView,
+                 saveChangesButton,
+                 changeDateCalendarButton,
+                 calendarLabel)
         
         NSLayoutConstraint.activate([
             verticalStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 8),

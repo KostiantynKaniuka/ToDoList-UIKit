@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+protocol ActivateEditMode: AnyObject {
+    func editButtonDidPressed() 
+}

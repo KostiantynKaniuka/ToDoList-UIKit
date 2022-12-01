@@ -16,7 +16,11 @@
 		E71C91FE292E902900443A43 /* HorizontalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71C91FD292E902900443A43 /* HorizontalStackView.swift */; };
 		E71C9201292E947B00443A43 /* AddNewTaskButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71C9200292E947B00443A43 /* AddNewTaskButton.swift */; };
 		E71C9203292E953500443A43 /* SegmentControll.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71C9202292E953500443A43 /* SegmentControll.swift */; };
+		E72040462938068900F6A669 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72040452938068900F6A669 /* NotificationManager.swift */; };
 		E72B812529339EC500F5DC3C /* DoneTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72B812429339EC500F5DC3C /* DoneTaskTableViewCell.swift */; };
+		E72BDFE6293779F4001C9AFE /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BDFE5293779F4001C9AFE /* UIView.swift */; };
+		E72BDFE829377CEE001C9AFE /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BDFE729377CEE001C9AFE /* StackView.swift */; };
+		E72BDFEA293797B0001C9AFE /* ActivateEditMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BDFE9293797B0001C9AFE /* ActivateEditMode.swift */; };
 		E72D0B26293413D400357ED0 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72D0B25293413D400357ED0 /* CalendarView.swift */; };
 		E734AC91293557B700D551DF /* DescriptionViewTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E734AC90293557B700D551DF /* DescriptionViewTextField.swift */; };
 		E734AC952935775A00D551DF /* NameLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E734AC942935775A00D551DF /* NameLabel.swift */; };
@@ -62,7 +66,11 @@
 		E71C91FD292E902900443A43 /* HorizontalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalStackView.swift; sourceTree = "<group>"; };
 		E71C9200292E947B00443A43 /* AddNewTaskButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTaskButton.swift; sourceTree = "<group>"; };
 		E71C9202292E953500443A43 /* SegmentControll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControll.swift; sourceTree = "<group>"; };
+		E72040452938068900F6A669 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		E72B812429339EC500F5DC3C /* DoneTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTaskTableViewCell.swift; sourceTree = "<group>"; };
+		E72BDFE5293779F4001C9AFE /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		E72BDFE729377CEE001C9AFE /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
+		E72BDFE9293797B0001C9AFE /* ActivateEditMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivateEditMode.swift; sourceTree = "<group>"; };
 		E72D0B25293413D400357ED0 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		E734AC90293557B700D551DF /* DescriptionViewTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewTextField.swift; sourceTree = "<group>"; };
 		E734AC942935775A00D551DF /* NameLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameLabel.swift; sourceTree = "<group>"; };
@@ -148,6 +156,26 @@
 			path = DoneTaskViewController;
 			sourceTree = "<group>";
 		};
+		E72BDFE2293771FE001C9AFE /* Calendar protocols */ = {
+			isa = PBXGroup;
+			children = (
+				E7703FC92934F94A00F951C1 /* CalendarViewDelegate.swift */,
+				E778D6002936AEEB00CFB180 /* EditCalendarViewDelegate .swift */,
+				E778D5FC2936875D00CFB180 /* UpdateChanges.swift */,
+			);
+			path = "Calendar protocols";
+			sourceTree = "<group>";
+		};
+		E72BDFE429377262001C9AFE /* CellsDataDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				E734AC9629357ED700D551DF /* SendOngoingTaskDataToDescription.swift */,
+				E734AC9829357F8400D551DF /* SendDoneTaskDataToDescription.swift */,
+				E72BDFE9293797B0001C9AFE /* ActivateEditMode.swift */,
+			);
+			path = CellsDataDelegate;
+			sourceTree = "<group>";
+		};
 		E734AC8F2935576F00D551DF /* DescpritionScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +219,7 @@
 				E7A86A89292D7BB40071D5AD /* RealmManager.swift */,
 				E7653709292C0037005FD271 /* SegmentSection.swift */,
 				E7A86A82292D77E70071D5AD /* Task.swift */,
+				E72040452938068900F6A669 /* NotificationManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -211,6 +240,8 @@
 			isa = PBXGroup;
 			children = (
 				E7703FCB2934FCB500F951C1 /* Extension+Date.swift */,
+				E72BDFE5293779F4001C9AFE /* UIView.swift */,
+				E72BDFE729377CEE001C9AFE /* StackView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -229,11 +260,8 @@
 			children = (
 				E7AC5FA6293157D8004670BD /* MainViewControllerDelegate.swift */,
 				E76B2CB92933CE8F0002B4AA /* DoneTaskTableViewControllerDelegate.swift */,
-				E7703FC92934F94A00F951C1 /* CalendarViewDelegate.swift */,
-				E734AC9629357ED700D551DF /* SendOngoingTaskDataToDescription.swift */,
-				E734AC9829357F8400D551DF /* SendDoneTaskDataToDescription.swift */,
-				E778D5FC2936875D00CFB180 /* UpdateChanges.swift */,
-				E778D6002936AEEB00CFB180 /* EditCalendarViewDelegate .swift */,
+				E72BDFE2293771FE001C9AFE /* Calendar protocols */,
+				E72BDFE429377262001C9AFE /* CellsDataDelegate */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -407,6 +435,7 @@
 				E7A86A83292D77E70071D5AD /* Task.swift in Sources */,
 				E72D0B26293413D400357ED0 /* CalendarView.swift in Sources */,
 				E765370D292C06AB005FD271 /* OngoingTaskTableViewController.swift in Sources */,
+				E72040462938068900F6A669 /* NotificationManager.swift in Sources */,
 				E7703FCC2934FCB500F951C1 /* Extension+Date.swift in Sources */,
 				E734AC9F29358D5C00D551DF /* DeleteButton.swift in Sources */,
 				E778D5FD2936875D00CFB180 /* UpdateChanges.swift in Sources */,
@@ -414,14 +443,17 @@
 				E778D5FF2936AE8500CFB180 /* EditCalendarView.swift in Sources */,
 				E7F6C905292BE2CA00E6A20B /* MainViewController.swift in Sources */,
 				E778D6012936AEEB00CFB180 /* EditCalendarViewDelegate .swift in Sources */,
+				E72BDFE829377CEE001C9AFE /* StackView.swift in Sources */,
 				E765370F292C170D005FD271 /* DoneTaskTableViewController.swift in Sources */,
 				E76B2CBC2933EA8A0002B4AA /* DescriptionViewController.swift in Sources */,
 				E7A86A8A292D7BB40071D5AD /* RealmManager.swift in Sources */,
+				E72BDFE6293779F4001C9AFE /* UIView.swift in Sources */,
 				E734AC9B293582B100D551DF /* DoneButton.swift in Sources */,
 				E71C91F8292E7C6200443A43 /* SaveTaskButton.swift in Sources */,
 				E7AC5FA329313E4E004670BD /* OngoingTaskTableViewCell.swift in Sources */,
 				E7653703292BF6E7005FD271 /* StyleExtension.swift in Sources */,
 				E72B812529339EC500F5DC3C /* DoneTaskTableViewCell.swift in Sources */,
+				E72BDFEA293797B0001C9AFE /* ActivateEditMode.swift in Sources */,
 				E7F6C901292BE2CA00E6A20B /* AppDelegate.swift in Sources */,
 				E71C91FA292E816400443A43 /* CalendarButton.swift in Sources */,
 				E71C9201292E947B00443A43 /* AddNewTaskButton.swift in Sources */,

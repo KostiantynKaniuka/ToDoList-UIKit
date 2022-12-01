@@ -12,6 +12,7 @@ class DoneTaskTableViewController: UITableViewController {
     private let realmManager = RealmManager()
     private var doneTasks: Results<Task>?
     static weak var delegate: SendDoneTaskDataToDescription?
+    static weak var editDelegate: ActivateEditMode?
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,15 +53,41 @@ extension DoneTaskTableViewController {
         return true
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let task = doneTasks?[indexPath.row] ?? Task()
+//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            let task = doneTasks?[indexPath.row] ?? Task()
+//            let id = task._id
+//            realmManager.deleteTask(id: id)
+//            tableView.beginUpdates()
+//            tableView.deleteRows(at: [indexPath], with: .automatic)
+//            tableView.endUpdates()
+//        }
+//    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        //Edit
+        let editAction = UIContextualAction(style: .normal, title: "Edit", handler: { (action, view, success) in
+            let task = self.doneTasks?[indexPath.row] ?? Task()
+            self.present(DescriptionViewController(), animated: true) {
+                DoneTaskTableViewController.delegate?.didSendDoneData(from: task)
+                DoneTaskTableViewController.editDelegate?.editButtonDidPressed()
+            }
+        })
+        //Delete
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete", handler: { (action, view, success) in
+            let task = self.doneTasks?[indexPath.row] ?? Task()
             let id = task._id
-            realmManager.deleteTask(id: id)
+            self.realmManager.deleteTask(id: id)
             tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .automatic)
             tableView.endUpdates()
-        }
+        })
+        //Button style settings
+        deleteAction.backgroundColor = .red
+        deleteAction.image = UIImage(systemName: "trash")
+        editAction.backgroundColor = .systemBlue
+        editAction.image = UIImage(systemName: "pencil")
+        return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
     }
 }
 

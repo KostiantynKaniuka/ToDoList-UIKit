@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import UserNotifications
 
 final class MainViewController: UIViewController {
     private let segmentControll = SegmentControll(frame: .null)
@@ -14,6 +15,9 @@ final class MainViewController: UIViewController {
     private let doneTaskViewController = DoneTaskTableViewController()
     private let addNewTaskButton = AddNewTaskButton()
     private var realm = RealmManager()
+    let notification = UNUserNotificationCenter.current()
+    let notificationManager  = NotificationManager()
+   
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,8 +114,8 @@ extension MainViewController {
     
     @objc private func addTaskButtonTapped(_ sender: UIButton) {
         present(NewTaskViewController(), animated: true, completion: nil)
+        }
     }
-}
 
 extension MainViewController: MainViewControllerDelegate {
     
@@ -119,6 +123,8 @@ extension MainViewController: MainViewControllerDelegate {
         presentedViewController?.dismiss(animated: true, completion: { [unowned self] in
             self.realm.addTask(title: task.title, deadlineDate: task.deadlineDate, shortDescription: task.shortDescription)
             ongoingTaskViewController.readTaskAndUpdateUi()
+            
+            notificationManager.setupNotifications(id: task.title, contentTitle: "To Do", contentBody: "Dead Line", date: task.deadlineDate!)
         })
     }
 }
@@ -127,7 +133,32 @@ extension MainViewController: UpdateChanges {
     func refreshTableView() {
         ongoingTaskViewController.tableView.reloadData()
         doneTaskViewController.tableView.reloadData()
+        
     }
-    
-    
+}
+
+extension MainViewController {
+
+    private func scheduleNotification(in senonds: TimeInterval, completion: (Bool) -> ()) {
+        removeNotifications(withIdentifiers: ["String"])
+        let date = Date(timeIntervalSinceNow: senonds)
+        print(Date())
+        print(date)
+        let content = UNMutableNotificationContent()
+        content.title = "To Do"
+        content.body = "LOL"
+        content.sound = .default
+
+        let calendar = Calendar(identifier: .gregorian)
+        let components = calendar.dateComponents([.month, .day, .hour, .minute, .second], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+        let request = UNNotificationRequest(identifier: "String", content: content, trigger: trigger)
+        let center = UNUserNotificationCenter.current()
+        center.add(request)
+    }
+
+    private func removeNotifications(withIdentifiers identifiers: [String]) {
+        let center = UNUserNotificationCenter.current()
+        center.removeAllPendingNotificationRequests()
+    }
 }

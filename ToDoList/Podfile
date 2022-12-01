@@ -8,5 +8,6 @@ target 'ToDoList' do
   # Pods for ToDoList
   
   pod 'FSCalendar'
+  pod 'DLLocalNotifications'
 
 end
