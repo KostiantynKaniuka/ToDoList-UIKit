@@ -124,7 +124,10 @@ extension MainViewController: MainViewControllerDelegate {
             self.realm.addTask(title: task.title, deadlineDate: task.deadlineDate, shortDescription: task.shortDescription)
             ongoingTaskViewController.readTaskAndUpdateUi()
             
-            notificationManager.setupNotifications(id: task.title, contentTitle: "To Do", contentBody: "Dead Line", date: task.deadlineDate!)
+           notificationManager.setupNotifications(id: task.title, contentTitle: "To Do", contentBody: "Dead Line", date: task.dateOfAdding)
+            
+        
+            
         })
     }
 }

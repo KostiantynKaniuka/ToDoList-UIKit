@@ -37,7 +37,6 @@
 		E76B2CBA2933CE8F0002B4AA /* DoneTaskTableViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76B2CB92933CE8F0002B4AA /* DoneTaskTableViewControllerDelegate.swift */; };
 		E76B2CBC2933EA8A0002B4AA /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76B2CBB2933EA8A0002B4AA /* DescriptionViewController.swift */; };
 		E7703FCA2934F94A00F951C1 /* CalendarViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7703FC92934F94A00F951C1 /* CalendarViewDelegate.swift */; };
-		E7703FCC2934FCB500F951C1 /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7703FCB2934FCB500F951C1 /* Extension+Date.swift */; };
 		E778D5FB29365FE700CFB180 /* SaveChangesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E778D5FA29365FE700CFB180 /* SaveChangesButton.swift */; };
 		E778D5FD2936875D00CFB180 /* UpdateChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = E778D5FC2936875D00CFB180 /* UpdateChanges.swift */; };
 		E778D5FF2936AE8500CFB180 /* EditCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E778D5FE2936AE8500CFB180 /* EditCalendarView.swift */; };
@@ -87,7 +86,6 @@
 		E76B2CB92933CE8F0002B4AA /* DoneTaskTableViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTaskTableViewControllerDelegate.swift; sourceTree = "<group>"; };
 		E76B2CBB2933EA8A0002B4AA /* DescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		E7703FC92934F94A00F951C1 /* CalendarViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewDelegate.swift; sourceTree = "<group>"; };
-		E7703FCB2934FCB500F951C1 /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
 		E778D5FA29365FE700CFB180 /* SaveChangesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveChangesButton.swift; sourceTree = "<group>"; };
 		E778D5FC2936875D00CFB180 /* UpdateChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateChanges.swift; sourceTree = "<group>"; };
 		E778D5FE2936AE8500CFB180 /* EditCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCalendarView.swift; sourceTree = "<group>"; };
@@ -239,7 +237,6 @@
 		E77C008D2931783D00807FB5 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				E7703FCB2934FCB500F951C1 /* Extension+Date.swift */,
 				E72BDFE5293779F4001C9AFE /* UIView.swift */,
 				E72BDFE729377CEE001C9AFE /* StackView.swift */,
 			);
@@ -436,7 +433,6 @@
 				E72D0B26293413D400357ED0 /* CalendarView.swift in Sources */,
 				E765370D292C06AB005FD271 /* OngoingTaskTableViewController.swift in Sources */,
 				E72040462938068900F6A669 /* NotificationManager.swift in Sources */,
-				E7703FCC2934FCB500F951C1 /* Extension+Date.swift in Sources */,
 				E734AC9F29358D5C00D551DF /* DeleteButton.swift in Sources */,
 				E778D5FD2936875D00CFB180 /* UpdateChanges.swift in Sources */,
 				E765370A292C0037005FD271 /* SegmentSection.swift in Sources */,

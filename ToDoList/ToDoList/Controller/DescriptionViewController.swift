@@ -127,8 +127,8 @@ extension DescriptionViewController: SendOngoingTaskDataToDescription {
     func didSendData(from task: Task) {
         taskNameTextField.text = task.title
         shortDescriptionTextField.text = task.shortDescription
-        dateOfAddingTextField.text = task.dateOfAdding.toString()
-        deadlineTextField.text = task.deadlineDate?.toString()
+        dateOfAddingTextField.text = task.dateOfAdding.formatted()
+        deadlineTextField.text = task.deadlineDate?.formatted()
         taskId = task._id
     }
 }
@@ -145,9 +145,9 @@ extension DescriptionViewController: SendDoneTaskDataToDescription {
     func didSendDoneData(from task: Task) {
         taskNameTextField.text = task.title
         shortDescriptionTextField.text = task.shortDescription
-        completedDateTextField.text = task.doneAt?.toString()
-        dateOfAddingTextField.text = task.dateOfAdding.toString()
-        deadlineTextField.text = task.deadlineDate?.toString()
+        completedDateTextField.text = task.doneAt?.formatted()
+        dateOfAddingTextField.text = task.dateOfAdding.formatted()
+        deadlineTextField.text = task.deadlineDate?.formatted()
         taskId = task._id
     }
 }

@@ -13,6 +13,7 @@ final class OngoingTaskTableViewController: UITableViewController {
     private var newTasks: Results<Task>?
     static weak var delegate: SendOngoingTaskDataToDescription?
     static weak var editDelegate: ActivateEditMode?
+    let notificationManager = NotificationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
