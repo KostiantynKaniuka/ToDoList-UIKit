@@ -1,5 +1,5 @@
 # ToDoList
-Yours first assistant in managing tasks
+# Yours first assistant in managing tasks
 
 Just hit the plus button and create new task. You can set task name and deadline date. Dont worry app will notify you about everything !
 
