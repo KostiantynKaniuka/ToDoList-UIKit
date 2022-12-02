@@ -10,7 +10,7 @@ Yours first assistant in managing tasks
 
 Just hit the plus button and create new task. You can set task name and deadline date. Dont worry app will notify you about everything 🔥 !
 
-<img width="250" alt="front" src="https://user-images.githubusercontent.com/99279665/205186414-1baa4cd4-003a-4a8d-b76e-69f98a92c41f.png"><img width="240" alt="Creating task" src="https://user-images.githubusercontent.com/99279665/205186422-ca924109-1c5d-4e2a-939a-15dde1a17001.png"><img src="https://user-images.githubusercontent.com/99279665/205186279-d4b383b3-60dc-48ae-a9ae-201c1eb55a8c.png" alt="drawing" style="width:245px;"/>
+<img width="249" alt="front" src="https://user-images.githubusercontent.com/99279665/205186414-1baa4cd4-003a-4a8d-b76e-69f98a92c41f.png"><img width="243" alt="new" src="https://user-images.githubusercontent.com/99279665/205267965-814ee88f-d84a-4759-bfc7-e949e14a8c31.png"><img src="https://user-images.githubusercontent.com/99279665/205186279-d4b383b3-60dc-48ae-a9ae-201c1eb55a8c.png" alt="drawing" style="width:245px;"/>
 
 If something missing just hit the edit button, add short description in edit section. You can hange deadline also!
 
