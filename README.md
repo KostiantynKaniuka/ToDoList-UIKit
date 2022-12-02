@@ -1,7 +1,10 @@
 # ToDoList
-# Yours first assistant in managing tasks
+## Tech Stack 🍏
+UIKit, Realm, Combine, UserNotifications, FSCalendar
 
-Just hit the plus button and create new task. You can set task name and deadline date. Dont worry app will notify you about everything !
+Yours first assistant in managing tasks
+
+Just hit the plus button and create new task. You can set task name and deadline date. Dont worry app will notify you about everything 🔥 !
 
 <img width="250" alt="front" src="https://user-images.githubusercontent.com/99279665/205186414-1baa4cd4-003a-4a8d-b76e-69f98a92c41f.png"><img width="240" alt="Creating task" src="https://user-images.githubusercontent.com/99279665/205186422-ca924109-1c5d-4e2a-939a-15dde1a17001.png"><img src="https://user-images.githubusercontent.com/99279665/205186279-d4b383b3-60dc-48ae-a9ae-201c1eb55a8c.png" alt="drawing" style="width:245px;"/>
 
@@ -13,4 +16,4 @@ Finaly deal with it ? Well done, hit blue circle or tick mark at edit section an
 
 <img width="250" alt="Done" src="https://user-images.githubusercontent.com/99279665/205187971-4420794b-216f-48c6-96a0-4b674733e720.png">
 
-All data are stored will be stored on your device via Realm so you can keep it or delete localy.
+All data will be stored on your device via Realm so you can keep it or delete localy.
