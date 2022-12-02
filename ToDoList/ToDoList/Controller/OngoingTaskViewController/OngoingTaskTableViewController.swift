@@ -19,9 +19,9 @@ final class OngoingTaskTableViewController: UITableViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.backgroundColor = .appBackground
-        tableView.register(OngoingTaskTableViewCell.self, forCellReuseIdentifier: OngoingTaskTableViewCell.reuseID)
+        setubViews()
         readTaskAndUpdateUi()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -29,14 +29,20 @@ final class OngoingTaskTableViewController: UITableViewController {
     }
     
     //MARK: - Methods
-    func readTaskAndUpdateUi() {
-        newTasks = realmManager.localRealm?.objects(Task.self).filter("completed = false").sorted(byKeyPath: "dateOfAdding", ascending: false)
-        tableView.reloadData()
-    }
-    
     private func handleDoneButton(for task: Task) {
         let id = task._id
         realmManager.updateTask(id: id, completed: true, date: Date())
+        tableView.reloadData()
+    }
+    
+    private func setubViews() {
+        tableView.alwaysBounceVertical = false
+        tableView.backgroundColor = .appBackground
+        tableView.register(OngoingTaskTableViewCell.self, forCellReuseIdentifier: OngoingTaskTableViewCell.reuseID)
+    }
+    
+    func readTaskAndUpdateUi() {
+        newTasks = realmManager.localRealm?.objects(Task.self).filter("completed = false").sorted(byKeyPath: "dateOfAdding", ascending: false)
         tableView.reloadData()
     }
 }

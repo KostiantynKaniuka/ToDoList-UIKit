@@ -19,8 +19,7 @@ final class DoneTaskTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         OngoingTaskTableViewCell.delegate = self
-        tableView.backgroundColor = .appBackground
-        tableView.register(DoneTaskTableViewCell.self, forCellReuseIdentifier: DoneTaskTableViewCell.reuseID)
+        setupViews()
         readDoneTaskAndUpdateUi()
     }
     
@@ -28,6 +27,12 @@ final class DoneTaskTableViewController: UITableViewController {
     private func readDoneTaskAndUpdateUi() {
         doneTasks = realmManager.localRealm?.objects(Task.self).filter("completed = true").sorted(byKeyPath: "dateOfAdding", ascending: false)
         tableView.reloadData()
+    }
+    
+    private func setupViews() {
+        tableView.alwaysBounceVertical = false
+        tableView.backgroundColor = .appBackground
+        tableView.register(DoneTaskTableViewCell.self, forCellReuseIdentifier: DoneTaskTableViewCell.reuseID)
     }
 }
 

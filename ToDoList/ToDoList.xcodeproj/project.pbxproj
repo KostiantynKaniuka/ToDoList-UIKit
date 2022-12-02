@@ -47,6 +47,7 @@
 		E7A86A8A292D7BB40071D5AD /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A86A89292D7BB40071D5AD /* RealmManager.swift */; };
 		E7AC5FA329313E4E004670BD /* OngoingTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AC5FA229313E4E004670BD /* OngoingTaskTableViewCell.swift */; };
 		E7AC5FA7293157D8004670BD /* MainViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AC5FA6293157D8004670BD /* MainViewControllerDelegate.swift */; };
+		E7BDED4E2939FE7D0085BFDA /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BDED4D2939FE7D0085BFDA /* TextField.swift */; };
 		E7F6C901292BE2CA00E6A20B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F6C900292BE2CA00E6A20B /* AppDelegate.swift */; };
 		E7F6C905292BE2CA00E6A20B /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F6C904292BE2CA00E6A20B /* ToDoListViewController.swift */; };
 		E7F6C90A292BE2CB00E6A20B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7F6C909292BE2CB00E6A20B /* Assets.xcassets */; };
@@ -94,6 +95,7 @@
 		E7A86A89292D7BB40071D5AD /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		E7AC5FA229313E4E004670BD /* OngoingTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingTaskTableViewCell.swift; sourceTree = "<group>"; };
 		E7AC5FA6293157D8004670BD /* MainViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerDelegate.swift; sourceTree = "<group>"; };
+		E7BDED4D2939FE7D0085BFDA /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		E7F6C8FD292BE2CA00E6A20B /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7F6C900292BE2CA00E6A20B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7F6C904292BE2CA00E6A20B /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				E72BDFE5293779F4001C9AFE /* UIView.swift */,
 				E72BDFE729377CEE001C9AFE /* StackView.swift */,
 				E7653702292BF6E7005FD271 /* StyleExtension.swift */,
+				E7BDED4D2939FE7D0085BFDA /* TextField.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -444,6 +447,7 @@
 				E76B2CBC2933EA8A0002B4AA /* DescriptionViewController.swift in Sources */,
 				E7A86A8A292D7BB40071D5AD /* RealmManager.swift in Sources */,
 				E72BDFE6293779F4001C9AFE /* UIView.swift in Sources */,
+				E7BDED4E2939FE7D0085BFDA /* TextField.swift in Sources */,
 				E734AC9B293582B100D551DF /* DoneButton.swift in Sources */,
 				E71C91F8292E7C6200443A43 /* SaveTaskButton.swift in Sources */,
 				E7AC5FA329313E4E004670BD /* OngoingTaskTableViewCell.swift in Sources */,

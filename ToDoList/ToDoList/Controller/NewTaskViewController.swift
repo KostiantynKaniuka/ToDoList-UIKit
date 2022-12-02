@@ -174,6 +174,8 @@ extension NewTaskViewController {
         deadlineLabel.text = "select deadline >"
         deadlineLabel.font = UIFont(name: "San Francisco", size: 17)
         deadlineLabel.textAlignment = .center
+        taskTextField.setLeftPaddingPoints(10)
+        taskTextField.setRightPaddingPoints(10)
     }
     
     private func layout() {
