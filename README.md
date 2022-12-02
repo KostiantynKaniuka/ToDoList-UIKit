@@ -1,8 +1,5 @@
 # ToDoList
-<<<<<<< HEAD
 
-
-=======
 ## Tech Stack 🍏
 UIKit, Realm, Combine, UserNotifications, FSCalendar
 
