@@ -14,7 +14,7 @@ Just hit the plus button and create new task. You can set task name and deadline
 
 If something missing just hit the edit button, add short description in edit section. You can hange deadline also!
 
-<img width="244" alt="Swipable" src="https://user-images.githubusercontent.com/99279665/205187116-65be3d82-8df7-4756-9a62-297f02ae6c1e.png"> <img width="245" alt="Screenshot 2022-12-02 at 01 04 38" src="https://user-images.githubusercontent.com/99279665/205187532-90cf0d1d-a053-401b-ba73-d52c5953ad8b.png"> <img width="250" alt="Edit" src="https://user-images.githubusercontent.com/99279665/205187249-54f646da-f0d2-49a8-9145-c1f4d9063612.png">
+<img width="244" alt="Swipable" src="https://user-images.githubusercontent.com/99279665/205187116-65be3d82-8df7-4756-9a62-297f02ae6c1e.png"><img width="247" alt="Screenshot 2022-12-02 at 01 04 38" src="https://user-images.githubusercontent.com/99279665/205187532-90cf0d1d-a053-401b-ba73-d52c5953ad8b.png"><img width="250" alt="Edit" src="https://user-images.githubusercontent.com/99279665/205187249-54f646da-f0d2-49a8-9145-c1f4d9063612.png">
 
 Finaly deal with it ? Well done, hit blue circle or tick mark at edit section and move task to Done section.
 
